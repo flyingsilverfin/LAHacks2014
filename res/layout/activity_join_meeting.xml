@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.JS.emittanceapp.JoinMeeting"
+    tools:ignore="MergeRootFrame">
+    
+    <Button
+        android:id="@+id/meetingConnectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp"
+        android:text="@string/meetingConnect" />
+
+    <EditText
+        android:id="@+id/meetingIdValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/meetingConnectButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/meetingIdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/meetingIdValue"
+        android:layout_alignRight="@+id/meetingIdValue"
+        android:layout_marginBottom="14dp"
+        android:text="@string/meetingID"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+</RelativeLayout>
+

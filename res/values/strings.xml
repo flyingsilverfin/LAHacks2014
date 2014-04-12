@@ -16,5 +16,8 @@
     <string name="namePrompt">Enter Name:</string>
     <string name="enterPNum">Enter Phone Number:</string>
     <string name="meetingTime">Meetup Time:</string>
+    <string name="title_activity_join_meeting">JoinMeeting</string>
+    <string name="meetingID">Enter the Meeting ID:</string>
+    <string name="meetingConnect">Connect</string>
 
 </resources>
