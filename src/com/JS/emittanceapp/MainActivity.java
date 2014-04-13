@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
 	private Button newMeetingButton;
 	private Button meetingCheckButton;
 	private Button joinMeetingButton;
+	private Button userSettingsButton;
 	SharedPreferences sharedPref;
 	SharedPreferences.Editor editor;
 	public String userName;
@@ -36,7 +37,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
+		sharedPref = getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
 		editor = sharedPref.edit();
 		if(sharedPref.getBoolean("firstTime", true)){
 			promptUser();
@@ -45,10 +46,8 @@ public class MainActivity extends Activity {
 			userNumber = sharedPref.getString("userNumber", "userNumber");
 			editor.commit();
 			Log.d(TAG, "Stored: " + userName + " " + userNumber);
+			logInText();
 		}
-		
-		loggedInText = (TextView)findViewById(R.id.loggedInText);
-		loggedInText.setText("Logged in as: " + userName);
 		
 		locator = new LocatorClass(getApplicationContext());
 		getLocation();
@@ -78,6 +77,12 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}});
 		
+		userSettingsButton = (Button) findViewById(R.id.userSettings);
+		userSettingsButton.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				promptUser();
+			}});
 		
 	}
 
@@ -126,7 +131,7 @@ public class MainActivity extends Activity {
 					editor.putBoolean("firstTime", false);
 					editor.commit();
 					Log.d(TAG, "Commited userName, userNumber, and firstTime");
-					
+					logInText();
 				}
 			});
 		
@@ -134,6 +139,11 @@ public class MainActivity extends Activity {
 		
 		alertD.show();
 		
+	}
+	
+	public void logInText(){
+		loggedInText = (TextView)findViewById(R.id.loggedInText);
+		loggedInText.setText("Logged in as: " + userName);
 	}
 	
 

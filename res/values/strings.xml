@@ -21,5 +21,6 @@
     <string name="meetingConnect">Connect</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="userProfileText">My Meetups</string>
+    <string name="userNameProfile">User</string>
 
 </resources>
