@@ -15,7 +15,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp"
-        android:text="@string/gpsCheck" />
+        android:text="@string/gpsCheck"
+        android:background="@drawable/custombutton" />
 
     <Button
         android:id="@+id/newMeetingButton"
@@ -24,7 +25,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="49dp"
-        android:text="@string/newMeeting" />
+        android:text="@string/newMeeting"
+        android:background="@drawable/custombutton" />
 
     <Button
         android:id="@+id/button2"
@@ -33,6 +35,7 @@
         android:layout_alignLeft="@+id/newMeetingButton"
         android:layout_below="@+id/newMeetingButton"
         android:layout_marginTop="28dp"
-        android:text="@string/joinMeeting" />
+        android:text="@string/joinMeeting"
+        android:background="@drawable/custombutton" />
 
 </RelativeLayout>

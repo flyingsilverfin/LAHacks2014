@@ -38,6 +38,7 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
     List<String> phno1 = new ArrayList<String>();
     private EditText meetingName;
     private EditText meetingTime;
+    private CheckBox pm;
     MyAdapter ma ;
     Button select;
 	
@@ -78,6 +79,34 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
              
              meetingTime = (EditText) findViewById(R.id.meetingTimeValue);
              String meetingTimeString = meetingTime.getText().toString();
+             
+             pm = (CheckBox) findViewById(R.id.amPmToggle);
+             
+             if(pm.isChecked()){
+                 boolean isColonReached = false;
+                 String timePart1 = "";
+                 String timePart2 = "";
+	             for(int timeLength = 0; timeLength < meetingTimeString.length(); timeLength++){
+	            	 if(meetingTimeString.charAt(timeLength) == ':'){
+	            		 isColonReached = true;
+	            	 } else {
+	            		 if(isColonReached){
+	            			 timePart2 = timePart2 + meetingTimeString.charAt(timeLength);
+	            		 } else {
+	            			 timePart1 = timePart1 + meetingTimeString.charAt(timeLength);
+	            		 }
+	            	 }
+	             }
+	             Log.d(TAG, timePart1 + " " + timePart2);
+	             if(Integer.parseInt(timePart1) < 12)
+	            	 timePart1 = String.valueOf(Integer.parseInt(timePart1) + 12);
+	             meetingTimeString = timePart1 + ":" + timePart2;
+	             Log.d(TAG, "Military: " + meetingTimeString);
+             }
+             
+             
+             
+             
              Log.d(TAG, meetingNameString + " " + meetingTimeString);
 
              Intent intent = new Intent(CreateMeetingActivity.this, NewMeetingLocationActivity.class);

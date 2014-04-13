@@ -62,7 +62,7 @@ public class NewMeetingLocationActivity extends Activity {
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.locationMap)).getMap();
 		
 		locator = new LocatorClass(NewMeetingLocationActivity.this);
-		if(locator.getLocation() != null){
+		if(locator.getLocation() != null && (locator.getLocation()[0] != 0.0 && locator.getLocation()[1] != 0.0)){
 			double[] location = locator.getLocation();
 			map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location[0], location[1]), (float) 10));
 		} else {
