@@ -11,7 +11,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="34dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="20sp" />
 
     <CheckBox
         android:id="@+id/checkBox1"

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.content.Context;
 
 public class MainActivity extends Activity {
@@ -20,7 +21,7 @@ public class MainActivity extends Activity {
 	private LocatorClass locator;
 	private double[] location;
 	private Button newMeetingButton;
-	private Button gpsCheckButton;
+	private Button meetingCheckButton;
 	private Button joinMeetingButton;
 	SharedPreferences sharedPref;
 	SharedPreferences.Editor editor;
@@ -29,6 +30,7 @@ public class MainActivity extends Activity {
 	final Context context = this;
 	private EditText nameInput;
 	private EditText phoneInput;
+	private TextView loggedInText;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,14 +47,18 @@ public class MainActivity extends Activity {
 			Log.d(TAG, "Stored: " + userName + " " + userNumber);
 		}
 		
+		loggedInText = (TextView)findViewById(R.id.loggedInText);
+		loggedInText.setText("Logged in as: " + userName);
+		
 		locator = new LocatorClass(getApplicationContext());
 		getLocation();
 		
-		gpsCheckButton = (Button) findViewById(R.id.gpsCheckButton);
-		gpsCheckButton.setOnClickListener(new View.OnClickListener() {
+		meetingCheckButton = (Button) findViewById(R.id.meetingCheckButton);
+		meetingCheckButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
-				getLocation();
-		
+				Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+				startActivity(intent);
+				Log.d(TAG, "Opening User profile activity");
 			}
 		});
 		

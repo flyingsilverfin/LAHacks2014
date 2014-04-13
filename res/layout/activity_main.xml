@@ -8,34 +8,53 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/gpsCheckButton"
+    <TextView
+        android:id="@+id/loggedInText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="0dp"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/meetingCheckButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/loggedInText"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp"
-        android:text="@string/gpsCheck"
-        android:background="@drawable/custom_button" />
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/userProfileText" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/newMeetingButton"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/meetontime" />
 
     <Button
         android:id="@+id/newMeetingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="49dp"
-        android:text="@string/newMeeting"
-        android:background="@drawable/custom_button" />
+        android:layout_above="@+id/joinMeetingButton"
+        android:layout_alignLeft="@+id/joinMeetingButton"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/newMeeting" />
 
     <Button
         android:id="@+id/joinMeetingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/newMeetingButton"
-        android:layout_below="@+id/newMeetingButton"
-        android:layout_marginTop="28dp"
-        android:text="@string/joinMeeting"
-        android:background="@drawable/custom_button" />
+        android:layout_above="@+id/meetingCheckButton"
+        android:layout_alignLeft="@+id/meetingCheckButton"
+        android:layout_marginBottom="27dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/joinMeeting" />
 
 </RelativeLayout>

@@ -19,5 +19,7 @@
     <string name="title_activity_join_meeting">JoinMeeting</string>
     <string name="meetingID">Enter the Meeting ID:</string>
     <string name="meetingConnect">Connect</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="userProfileText">My Meetups</string>
 
 </resources>
