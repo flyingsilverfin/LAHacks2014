@@ -34,7 +34,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/nextMapButton"
-        android:background="@drawable/custombutton" />
+        android:background="@drawable/custom_button" />
 
      <ListView
          android:id="@+id/lv"

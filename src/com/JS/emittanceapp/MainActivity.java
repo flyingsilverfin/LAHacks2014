@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.Context;
@@ -20,6 +21,7 @@ public class MainActivity extends Activity {
 	private double[] location;
 	private Button newMeetingButton;
 	private Button gpsCheckButton;
+	private Button joinMeetingButton;
 	SharedPreferences sharedPref;
 	SharedPreferences.Editor editor;
 	public String userName;
@@ -61,6 +63,14 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		
+		joinMeetingButton = (Button) findViewById(R.id.joinMeetingButton);
+		joinMeetingButton.setOnClickListener(new OnClickListener() 
+		{
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, JoinMeeting.class);
+				startActivity(intent);
+			}});
 		
 		
 	}

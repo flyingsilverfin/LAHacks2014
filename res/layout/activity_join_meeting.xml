@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="150dp"
         android:text="@string/meetingConnect"
-        android:background="@drawable/custombutton" />
+        android:background="@drawable/custom_button" />
 
     <EditText
         android:id="@+id/meetingIdValue"

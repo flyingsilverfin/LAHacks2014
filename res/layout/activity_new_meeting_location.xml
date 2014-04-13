@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/custombutton"
+        android:background="@drawable/custom_button"
         android:text="@string/createMeetingButton" />
 
 </RelativeLayout>
