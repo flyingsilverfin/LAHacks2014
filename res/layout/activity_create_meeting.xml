@@ -43,34 +43,24 @@
          android:layout_marginTop="110dp"
          android:layout_marginBottom="55dp" />
 
-     <TextView
-         android:id="@+id/meetingTimeText"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/meetingName"
-         android:layout_marginTop="10dp"
-         android:text="@string/meetingTime"
-         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-     <EditText
+     <Button
          android:id="@+id/meetingTimeValue"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignLeft="@+id/meetingName"
-         android:layout_alignTop="@+id/meetingTimeText"
-         android:layout_toLeftOf="@+id/amPmToggle"
+         android:layout_below="@+id/meetingName"
          android:ems="10"
-         android:inputType="time"
-         android:hint="10:23" />
+         android:text="Time"/>
 
-     <CheckBox
-         android:id="@+id/amPmToggle"
+     <Button
+         android:id="@+id/meetDatePicker"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_alignBottom="@+id/meetingTimeValue"
-         android:layout_alignParentRight="true"
-         android:text="PM" />
+         android:layout_alignParentLeft="true"
+         android:layout_alignTop="@+id/meetingTimeValue"
+         android:layout_toLeftOf="@+id/meetingTimeValue"
+         android:ems="10"
+         android:text="Date" />
 
 </RelativeLayout>
 

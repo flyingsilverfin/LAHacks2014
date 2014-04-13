@@ -35,7 +35,7 @@ public class NewMeetingLocationActivity extends Activity {
 	private Button createMeetingButton;
 	private ArrayList<String[]> checkedContacts = new ArrayList<String[]>();
 	private String meetingName;
-	private String meetingTime;
+	private String meetingDateTime;
 	private LocatorClass locator;
 	
 	@SuppressWarnings("unchecked")
@@ -48,9 +48,9 @@ public class NewMeetingLocationActivity extends Activity {
 		Bundle extras = intent.getExtras();
 		checkedContacts = (ArrayList<String[]>) extras.get("checkedContacts");
 		meetingName = (String) extras.getString("meetingName");
-		meetingTime = (String) extras.getString("meetingTime");
+		meetingDateTime = (String) extras.getString("meetingDateTime");
 		
-		Log.d(TAG, "Meeting Name: " + meetingName + " Meeting Time: " + meetingTime);
+		Log.d(TAG, "Meeting Name: " + meetingName + " Meeting Time: " + meetingDateTime);
 		try{
 			for(String[] a: checkedContacts){
 				Log.d(TAG, a[0].toString() + " " + a[1].toString()); //check all checkedContacts got brought over to the new activity
@@ -116,7 +116,7 @@ public class NewMeetingLocationActivity extends Activity {
 				intent.putExtra("checkedContacts", checkedContacts); 	//send checkedContacs to new intent
 				intent.putExtra("latLng", location);					//send location to new intent
 				intent.putExtra("meetingName", meetingName);
-				intent.putExtra("meetingTime", meetingTime);
+				intent.putExtra("meetingTime", meetingDateTime);
 				startActivity(intent);
 				
 			}}

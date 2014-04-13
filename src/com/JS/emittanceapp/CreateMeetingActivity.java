@@ -1,22 +1,30 @@
 package com.JS.emittanceapp;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.ListActivity;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Editable;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Display;
@@ -37,8 +45,11 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 	List<String> name1 = new ArrayList<String>();
     List<String> phno1 = new ArrayList<String>();
     private EditText meetingName;
-    private EditText meetingTime;
+    private Button meetingTime;
+    private Button meetDatePicker;
     private CheckBox pm;
+    private String date;
+    private String time;
     MyAdapter ma ;
     Button select;
 	
@@ -76,47 +87,29 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
                 }
              meetingName = (EditText) findViewById(R.id.meetingName);
              String meetingNameString = meetingName.getText().toString();
-             
-             meetingTime = (EditText) findViewById(R.id.meetingTimeValue);
-             String meetingTimeString = meetingTime.getText().toString();
-             
-             pm = (CheckBox) findViewById(R.id.amPmToggle);
-             
-             if(pm.isChecked()){
-                 boolean isColonReached = false;
-                 String timePart1 = "";
-                 String timePart2 = "";
-	             for(int timeLength = 0; timeLength < meetingTimeString.length(); timeLength++){
-	            	 if(meetingTimeString.charAt(timeLength) == ':'){
-	            		 isColonReached = true;
-	            	 } else {
-	            		 if(isColonReached){
-	            			 timePart2 = timePart2 + meetingTimeString.charAt(timeLength);
-	            		 } else {
-	            			 timePart1 = timePart1 + meetingTimeString.charAt(timeLength);
-	            		 }
-	            	 }
-	             }
-	             Log.d(TAG, timePart1 + " " + timePart2);
-	             if(Integer.parseInt(timePart1) < 12)
-	            	 timePart1 = String.valueOf(Integer.parseInt(timePart1) + 12);
-	             meetingTimeString = timePart1 + ":" + timePart2;
-	             Log.d(TAG, "Military: " + meetingTimeString);
-             }
-             
-             
-             
-             
-             Log.d(TAG, meetingNameString + " " + meetingTimeString);
 
              Intent intent = new Intent(CreateMeetingActivity.this, NewMeetingLocationActivity.class);
              intent.putExtra("checkedContacts", checkedcontacts);
              intent.putExtra("meetingName", meetingNameString);
-             intent.putExtra("meetingTime", meetingTimeString);
+             intent.putExtra("meetingDateTime", date + time);
              startActivity(intent);
                 //Toast.makeText(CreateMeetingActivity.this, checkedcontacts,1000).show();
             }
         });
+        
+        meetDatePicker = (Button) findViewById(R.id.meetDatePicker);
+        meetDatePicker.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				Log.d(TAG, "DatePicker clicked");
+				selectDate();
+			}});
+        
+        meetingTime = (Button) findViewById(R.id.meetingTimeValue);
+        meetingTime.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				Log.d(TAG, "TimePicker clicked");
+				selectTime();
+			}});
 		
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -266,5 +259,78 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 
              mCheckStates.put((Integer) buttonView.getTag(), isChecked);         
         }   
-    }   
+    }
+	
+	public void selectDate(){
+		DialogFragment dateFragment = new SelectDateFragment();
+		dateFragment.show(getFragmentManager(), "DatePicker");
+	}
+	
+	public void selectTime(){
+		DialogFragment timeFragment = new SelectTimeFragment();
+		timeFragment.show(getFragmentManager(), "DatePicker");
+	}
+	
+	public void populateSetDate(int year, int month, int day) {
+		meetDatePicker.setText(year + "-" + month + "-" + day);
+		String tMonth = "" + month;
+		String tDay = "" + day;
+		if(month < 10)
+			tMonth = "0" + month;
+		if(day < 10)
+			tDay = "0" + day;
+		
+		date = year + "-" + tMonth + "-" + tDay;
+		
+	}
+	
+	public void populateSetTime(int hour, int minute){
+		String tHour = "" + hour;
+		String tMinute = "" + minute;
+		if(hour < 10)
+			tHour = "0" + hour;
+		if(minute < 10)
+			tMinute = "0" + minute;
+		meetingTime.setText(hour + ":" + tMinute);
+		time = tHour + ":" + tMinute + ":00";
+	}
+	
+	@SuppressLint("ValidFragment")
+	public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			final Calendar calendar = Calendar.getInstance();
+			int yy = calendar.get(Calendar.YEAR);
+			int mm = calendar.get(Calendar.MONTH);
+			int dd = calendar.get(Calendar.DAY_OF_MONTH);
+			
+			return new DatePickerDialog(getActivity(), this, yy, mm, dd);
+		}
+		
+		public void onDateSet(DatePicker view, int yy, int mm,
+				int dd) {
+			populateSetDate(yy, mm+1, dd);
+		}
+		
+		
+	}
+	
+	@SuppressLint("ValidFragment")
+	public class SelectTimeFragment extends DialogFragment implements OnTimeSetListener{
+
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			final Calendar calendar = Calendar.getInstance();
+			int hh = calendar.get(Calendar.HOUR);
+			int mm = calendar.get(Calendar.MINUTE);
+			boolean timeFormat = DateFormat.is24HourFormat(getActivity());
+			return new TimePickerDialog(getActivity(), this, hh, mm, timeFormat);
+		}
+
+		public void onTimeSet(TimePicker view, int hour, int minute) {
+			populateSetTime(hour, minute);
+		}
+		
+		
+	}
+	
 }
