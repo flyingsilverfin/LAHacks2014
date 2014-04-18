@@ -1,4 +1,4 @@
-package com.JS.emittanceapp;
+package com.JS.meetontime;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 		sharedPref = getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
 		editor = sharedPref.edit();
 		if(sharedPref.getBoolean("firstTime", true)){
+			editor.putBoolean("isRegisteredOnServer", false);
 			promptUser();
 		} else {
 			userName = sharedPref.getString("userName", "userName");
@@ -121,7 +122,7 @@ public class MainActivity extends Activity {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					userName = nameInput.getText().toString();
+					userName = nameInput.getText().toString().replace(" ", ""); //remove spaces
 					editor.putString("userName", userName);
 					Log.d(TAG, "Name stored as: " + userName);
 					
@@ -132,6 +133,9 @@ public class MainActivity extends Activity {
 					editor.commit();
 					Log.d(TAG, "Commited userName, userNumber, and firstTime");
 					logInText();
+					
+					ServerCommunicator s = new ServerCommunicator(getApplicationContext());
+					s.registerUser();
 				}
 			});
 		
