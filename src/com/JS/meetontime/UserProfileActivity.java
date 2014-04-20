@@ -25,7 +25,7 @@ public class UserProfileActivity extends Activity {
 	private TextView userName;
 	SharedPreferences sharedPref;
 	
-	private MeetupBuilder mMeetupBuilder;
+	private DatabaseBuilder mDatabaseBuilder;
 	
 	private ArrayList<Meetup> mMeetupList;
 	
@@ -42,7 +42,7 @@ public class UserProfileActivity extends Activity {
 		
 		Log.i(TAG,"In userprofileActivity");
 		
-		mMeetupBuilder = new MeetupBuilder(mMeetupList);
+		mDatabaseBuilder = new DatabaseBuilder(mMeetupList);
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -105,7 +105,7 @@ public class UserProfileActivity extends Activity {
 		
 		for (String primaryKey : primaryKeys) {
 			Log.i(TAG, "primaryKey " + primaryKey);
-			mMeetupBuilder.build(Integer.parseInt(primaryKey), userId,  userName);
+			mDatabaseBuilder.build(Integer.parseInt(primaryKey), userId,  userName);
 		}
 		Log.i(TAG,"Completed submitting rebuilding tasks to Async");
 	}
