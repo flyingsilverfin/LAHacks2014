@@ -216,7 +216,7 @@ public class NewMeetingLocationActivity extends Activity {
 			ArrayList<String> inviteds = Helper.parseToStringList(data[7].split("=")[1], ";");
 			ArrayList<String> invitedsNames = Helper.parseToStringList(data[8].split("=")[1], ";");
 			ArrayList<String> invitedsStatuses = Helper.parseToStringList(data[9].split("=")[1], ";");
-			ArrayList<Integer> invitedsRatings = Helper.parseToIntegerList(data[10].split("=")[1], ";");
+			ArrayList<Float> invitedsRatings = Helper.parseToFloatList(data[10].split("=")[1], ";");
 
 			Meetup m = new Meetup(eventId, eventName, hostId, hostName, lat, lng, 
 					datetime, inviteds, invitedsNames, invitedsStatuses, invitedsRatings, getApplicationContext());	

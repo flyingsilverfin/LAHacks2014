@@ -34,7 +34,7 @@ public class Meetup{
 	private ArrayList<String> mInviteds;
 	private ArrayList<String> mInvitedsNames;
 	private ArrayList<String> mInvitedsStatuses;
-	private ArrayList<Integer> mInvitedsRatings;
+	private ArrayList<Float> mInvitedsRatings;
 	
 	
 	//currently unimplemented...
@@ -44,7 +44,7 @@ public class Meetup{
 
 	//need Context to tell if you're hosting
 	public Meetup(int eventId, String eventName, String hostId, String hostName, String lat, String lng, String datetime, 
-			ArrayList<String> inviteds, ArrayList<String> invitedsNames, ArrayList<String> invitedsStatuses, ArrayList<Integer> invitedsRatings,
+			ArrayList<String> inviteds, ArrayList<String> invitedsNames, ArrayList<String> invitedsStatuses, ArrayList<Float> invitedsRatings,
 			Context context) {
 		
 		if (Helper.getUserNumber(context).equals(hostId)) {
@@ -154,7 +154,7 @@ public class Meetup{
 		mInvitedsStatuses = invitedsStatus;
 	}
 	
-	public void setInvitedsRatings(ArrayList<Integer> invitedsRatings) {
+	public void setInvitedsRatings(ArrayList<Float> invitedsRatings) {
 		mInvitedsRatings = invitedsRatings;
 	}
 	

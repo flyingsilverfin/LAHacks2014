@@ -127,12 +127,12 @@ public class Helper {
 		return l;
 	}
 	
-	public static ArrayList<Integer> parseToIntegerList(String str, String splitChar) {
-		ArrayList<Integer> l = new ArrayList<Integer>();
+	public static ArrayList<Float> parseToFloatList(String str, String splitChar) {
+		ArrayList<Float> l = new ArrayList<Float>();
 		
 		String[] split = str.split(splitChar);
 		for (String s : split) {
-			l.add(Integer.parseInt(s));
+			l.add(Float.parseFloat(s));
 		}
 		
 		return l;

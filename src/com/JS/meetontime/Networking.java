@@ -31,7 +31,7 @@ import android.util.Log;
 public class Networking {
 
 	private final static String TAG = "Networking";
-	private final static String baseUrl = "http://someurl.com/";
+	private final static String baseUrl = "http://someurl.com";
 
 	//public NetworkHandler communicator; //dont even need this since each function creates its own
 
@@ -187,6 +187,12 @@ public class Networking {
 
 			HttpGet httpGet = new HttpGet(url);
 			String responseString = "HELLO, YOU ENTERED: " + url;
+			
+			//testing for new meetup:
+			//responseString = "eventId=0&eventname=HELLO&hostId=ME&hostName=JoshuaSend&lat=301.01928394&long=118.01840582&datetime=2014-04-2020:20:20&inviteds=8584365309&invitedsNames=NilminiSilvasend&invitedsStatuses=false&invitedsRatings=4.02";
+			
+			
+			
 			Log.i(TAG, responseString);
 			
 			/*
