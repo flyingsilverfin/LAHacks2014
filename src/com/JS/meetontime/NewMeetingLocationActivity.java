@@ -5,8 +5,10 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,7 +39,9 @@ public class NewMeetingLocationActivity extends Activity {
 	private String meetingDateTime;
 	private LocatorClass locator;
 	
-	@SuppressWarnings("unchecked")
+	private Networking mNetwork;
+	private DatabaseBuilder DbBuilder;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,7 +49,8 @@ public class NewMeetingLocationActivity extends Activity {
 		Log.d(TAG, "Reached location onCreate");
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-		checkedContacts = (ArrayList<String[]>) extras.get("checkedContacts");
+		//these are (name, phone) pairs
+		checkedContacts = (ArrayList<String[]>) extras.get("checkedContacts"); 
 		meetingName = (String) extras.getString("meetingName");
 		meetingDateTime = (String) extras.getString("meetingDateTime");
 		
@@ -111,26 +117,27 @@ public class NewMeetingLocationActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				
-				String[] contacts = new String[checkedContacts.size()];
+				ArrayList<String> contactNumbers = new ArrayList<String>();
+				ArrayList<String> contactNames = new ArrayList<String>();
 				for (int i = 0; i < checkedContacts.size(); i++) {
-					contacts[i] = checkedContacts.get(i)[1];
+					contactNames.add(checkedContacts.get(i)[0]);
+					contactNumbers.add(checkedContacts.get(i)[1]);
+				}
+
+								
+				Meetup meet = new Meetup(Helper.getLocalCounter(NewMeetingLocationActivity.this), meetingName,
+						Helper.getUserNumber(NewMeetingLocationActivity.this), Helper.getUserName(NewMeetingLocationActivity.this),
+						String.format("11.8f", location.latitude), String.format("11.8f", location.longitude),
+						meetingDateTime, contactNumbers, contactNumbers, null, null, NewMeetingLocationActivity.this.getApplicationContext()
+						);
+				
+				if (mNetwork.isOnline()) {
+					mNetwork.newMeetup(meet, new newMeetupCallback());
+				}
+				else {
+					DbBuilder.addMeetup(meet);
 				}
 				
-				Date d;
-				try {
-					d = HostMeetup.dateFormat.parse(meetingDateTime);
-				} catch (Exception e) {
-					d = new Date();
-					return;
-				}
-				Log.i(TAG,meetingName + ", " + contacts + ", " + d + ",");
-				
-				//LatLng location = new LatLng(45.8757878, 67.87665);
-				HostMeetup meet = new HostMeetup(String.format("%11.8f",45.8757878),
-						String.format("%11.8f", 67.87665), meetingName, 
-						contacts, d, getApplicationContext());
-				
-				meet.prepForAsync();
 				/*
 				Intent intent = new Intent(NewMeetingLocationActivity.this, MainActivity.class);
 				intent.putExtra("checkedContacts", checkedContacts); 	//send checkedContacs to new intent
@@ -143,6 +150,10 @@ public class NewMeetingLocationActivity extends Activity {
 			}}
 		);
 		
+		
+		mNetwork = new Networking(getApplicationContext());
+		DbBuilder = DatabaseBuilder.getDatabaseBuilder(getApplicationContext());
+						
 		
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -189,5 +200,99 @@ public class NewMeetingLocationActivity extends Activity {
 	
 	
 	
+	/*
+	 * -----------------------callbacks----------------------------
+	 */
+	
+	class registerUserCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			Toast.makeText(getApplicationContext(), "Registered on server!", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	class updateUserRegistrationCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			Toast.makeText(getApplicationContext(), "Updated registration", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	class newMeetupCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			//eventId=...&eventname=&hostId=...&hostName=...&lat=&long=&datetime=&inviteds=...&invitedsNames=...&invitedsStatuses=...&invitedsRatings=...
+			String[] data = res.split("&");
+			int eventId = Integer.parseInt(data[0].split("=")[1]);
+			String eventName = data[1].split("=")[1];
+			String hostId = data[2].split("=")[1];	//this is the difference from above!
+			String hostName = data[3].split("=")[1];	//and this
+			String lat = data[4].split("=")[1];
+			String lng = data[5].split("=")[1];
+			String datetime = data[6].split("=")[1];
+			ArrayList<String> inviteds = Helper.parseToStringList(data[7].split("=")[1], ";");
+			ArrayList<String> invitedsNames = Helper.parseToStringList(data[8].split("=")[1], ";");
+			ArrayList<String> invitedsStatuses = Helper.parseToStringList(data[9].split("=")[1], ";");
+			ArrayList<Integer> invitedsRatings = Helper.parseToIntegerList(data[10].split("=")[1], ";");
+
+			Meetup m = new Meetup(eventId, eventName, hostId, hostName, lat, lng, 
+					datetime, inviteds, invitedsNames, invitedsStatuses, invitedsRatings, getApplicationContext());	
+			
+			DbBuilder.addMeetup(m);
+		}
+	}
+
+	class joinMeetupCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			//eventId=...&eventname=&hostId=...&hostName=...&lat=&long=&datetime=&inviteds=...&invitedsNames=...&invitedsStatuses=...&invitedsRatings=...
+			String[] data = res.split("&");
+			int eventId = Integer.parseInt(data[0].split("=")[1]);
+			String eventName = data[1].split("=")[1];
+			String hostId = data[2].split("=")[1];	//this is the difference from above!
+			String hostName = data[3].split("=")[1];	//and this
+			String lat = data[4].split("=")[1];
+			String lng = data[5].split("=")[1];
+			String datetime = data[6].split("=")[1];
+			ArrayList<String> inviteds = Helper.parseToStringList(data[7].split("=")[1], ";");
+			ArrayList<String> invitedsNames = Helper.parseToStringList(data[8].split("=")[1], ";");
+			ArrayList<String> invitedsStatuses = Helper.parseToStringList(data[9].split("=")[1], ";");
+			ArrayList<Integer> invitedsRatings = Helper.parseToIntegerList(data[10].split("=")[1], ";");
+
+			Meetup m = new Meetup(eventId, eventName, hostId, hostName, lat, lng, 
+					datetime, inviteds, invitedsNames, invitedsStatuses, invitedsRatings, getApplicationContext());	
+			
+			DbBuilder.addMeetup(m);
+		}
+	}
+
+	class rsvpMeetupCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			//res = "eventId=000"
+			String[] idSet = res.split("=");
+			int eventId = Integer.parseInt(idSet[1]);
+			DbBuilder.rsvpMeetup(eventId);
+		}
+	}
+
+	class updateMeetupCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			//eventId=...&eventname=&hostId=...&hostName=...&lat=&long=&datetime=&inviteds=...&invitedsNames=...&invitedsStatuses=...&invitedsRatings=...
+			String[] data = res.split("&");
+			int eventId = Integer.parseInt(data[0].split("=")[1]);
+			String eventName = data[1].split("=")[1];
+			String hostId = data[2].split("=")[1];	//this is the difference from above!
+			String hostName = data[3].split("=")[1];	//and this
+			String lat = data[4].split("=")[1];
+			String lng = data[5].split("=")[1];
+			String datetime = data[6].split("=")[1];
+			ArrayList<String> inviteds = Helper.parseToStringList(data[7].split("=")[1], ";");
+			ArrayList<String> invitedsNames = Helper.parseToStringList(data[8].split("=")[1], ";");
+			ArrayList<String> invitedsStatuses = Helper.parseToStringList(data[9].split("=")[1], ";");
+			ArrayList<Integer> invitedsRatings = Helper.parseToIntegerList(data[10].split("=")[1], ";");
+
+			Meetup m = new Meetup(eventId, eventName, hostId, hostName, lat, lng, 
+					datetime, inviteds, invitedsNames, invitedsStatuses, invitedsRatings, getApplicationContext());	
+			
+			DbBuilder.updateMeetup(m);
+
+		}
+	}
 
 }

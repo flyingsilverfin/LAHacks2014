@@ -32,18 +32,19 @@ public class Meetup{
 	private boolean hasRsvp = false;
 	
 	private ArrayList<String> mInviteds;
+	private ArrayList<String> mInvitedsNames;
 	private ArrayList<String> mInvitedsStatuses;
 	private ArrayList<Integer> mInvitedsRatings;
 	
 	
-	//also currently unused...
+	//currently unimplemented...
 	private String mLastUpdated;	//to check for updates on the server
 									//IMPORTANT: this time is always based on server... do not use local time otherwise will never match!
 	
 
 	//need Context to tell if you're hosting
 	public Meetup(int eventId, String eventName, String hostId, String hostName, String lat, String lng, String datetime, 
-			ArrayList<String> inviteds, ArrayList<String> invitedsStatuses, ArrayList<Integer> invitedsRatings,
+			ArrayList<String> inviteds, ArrayList<String> invitedsNames, ArrayList<String> invitedsStatuses, ArrayList<Integer> invitedsRatings,
 			Context context) {
 		
 		if (Helper.getUserNumber(context).equals(hostId)) {
@@ -67,6 +68,7 @@ public class Meetup{
 		}
 		
 		mInviteds = inviteds;
+		mInvitedsNames = invitedsNames;
 		mInvitedsStatuses = invitedsStatuses;
 		mInvitedsRatings = invitedsRatings;
 		
@@ -140,6 +142,10 @@ public class Meetup{
 		mInviteds = inviteds;
 	}
 	
+	public void setInvitedsNames(ArrayList<String> names) {
+		mInvitedsNames = names;
+	}
+	
 	public void setInvitedsStatus(ArrayList<String> invitedsStatus) {
 		mInvitedsStatuses = invitedsStatus;
 	}
@@ -151,7 +157,5 @@ public class Meetup{
 	public void rsvp() {
 		hasRsvp = true;
 	}
-	
-	
 	
 }

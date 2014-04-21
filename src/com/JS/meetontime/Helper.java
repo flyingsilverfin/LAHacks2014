@@ -31,6 +31,20 @@ public class Helper {
 		return userName;	
 	}
 	
+	public static int getLocalCounter(Context context) {
+		SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
+		int tempId = prefs.getInt("localTempCounter", -1);
+		incrementLocalCounter(context);
+		return tempId;
+	}
+	
+	private static void incrementLocalCounter(Context context) {
+		SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt("localTemptCounter", getLocalCounter(context)+1);
+		editor.commit();
+	}
+	
 	
 	/*
 	 * Private file edits
@@ -106,4 +120,27 @@ public class Helper {
 		String cut = s.substring(startingIndex);
 		return cut.indexOf(strToFind);
 	}
+	
+	public static ArrayList<String> parseToStringList(String str, String splitChar) {
+		ArrayList<String> l = new ArrayList<String>();
+		
+		String[] split = str.split(splitChar);
+		for (String s : split) {
+			l.add(s);
+		}
+		
+		return l;
+	}
+	
+	public static ArrayList<Integer> parseToIntegerList(String str, String splitChar) {
+		ArrayList<Integer> l = new ArrayList<Integer>();
+		
+		String[] split = str.split(splitChar);
+		for (String s : split) {
+			l.add(Integer.parseInt(s));
+		}
+		
+		return l;
+	}
+	
 }

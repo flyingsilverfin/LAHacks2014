@@ -33,23 +33,15 @@ public class Networking {
 	private final static String TAG = "Networking";
 	private final static String baseUrl = "http://someurl.com/";
 
-	public NetworkHandler communicator;
+	//public NetworkHandler communicator; //dont even need this since each function creates its own
 
 	private Context mContext;
 
 	public Networking(Context context) {
 		mContext = context;
-		communicator = new NetworkHandler();
+		//don't need to instantiate communicator here
+		//instantiated new each time a function requiring the async is called
 	}
-
-	public NetworkHandler newNetworkHandler() {
-		//copy out the callback and put it in the new one
-		NetworkHandler n = new NetworkHandler();
-		AsyncResponseInterface resp = communicator.asyncCallback;
-		n.asyncCallback = resp;
-		return n;
-	}
-	
 
 	/*
 	 * Check for network connection
@@ -84,14 +76,15 @@ public class Networking {
 	 * IF THIS FAILS because there's no network or something
 	 * Then that is a failure of the program
 	 */
-	public void registerUser() {
-		communicator = newNetworkHandler();
+	public void registerUser(AsyncResponseInterface callbackObj) {
+		NetworkHandler com = new NetworkHandler();
+		com.asyncCallback = callbackObj;
 		
 		String userName = Helper.getUserName(mContext);
 		String userNumber = Helper.getUserNumber(mContext);
 		
 		String GET = "/register/?number=" + userNumber + "&name=" + userName;
-		communicator.execute(GET);
+		com.execute(GET);
 	}
 	
 	
@@ -101,8 +94,9 @@ public class Networking {
 	 * Then the update never gets registered...
 	 * Easiest solution: don't even save update to shared prefs if there's no network, and never call this
 	 */
-	public void updateUserRegistration(String oldNumber) {
-		communicator = newNetworkHandler();
+	public void updateUserRegistration(String oldNumber, AsyncResponseInterface callbackObj) {
+		NetworkHandler com = new NetworkHandler();
+		com.asyncCallback = callbackObj;
 		
 		String userName = Helper.getUserName(mContext);
 		String userNumber = Helper.getUserNumber(mContext);
@@ -111,7 +105,7 @@ public class Networking {
 				"&newNumber=" + userNumber + 
 				"&newName=" + userName;
 					
-		communicator.execute(GET);
+		com.execute(GET);
 	}
 	
 
@@ -120,13 +114,9 @@ public class Networking {
 	 * Make new meetup
 	 */
 	
-	public void newMeetup(Meetup meetup) {
-		///newMeetup/?hostId=...&eventName=...&lat=&long=&datetime=&inviteds=
-		/*
-		 * TODO
-		 */
-		
-		communicator = newNetworkHandler();
+	public void newMeetup(Meetup meetup, AsyncResponseInterface callbackObj) {
+		NetworkHandler com = new NetworkHandler();
+		com.asyncCallback = callbackObj;
 		
 		String GET = "/newMeetup/?";
 		GET += "hostId=" + meetup.getHostId();
@@ -136,30 +126,49 @@ public class Networking {
 		GET += "&datetime=" + meetup.getFormattedDate();
 		GET += "&inviteds=" + meetup.getInvitedsString();
 		
-		communicator.execute(GET);	
+		com.execute(GET);	
 	}
 
 	
-	public void joinMeetup(int eventId) {
-		/*
-		 * TODO
-		 */
+	public void joinMeetup(int eventId, AsyncResponseInterface callbackObj) {
+		NetworkHandler com = new NetworkHandler();
+		com.asyncCallback = callbackObj;
+		
+		String GET = "/joinMeetup/?";
+		GET += "eventid=" + eventId;
+		
+		com.execute(GET);
 	}
 	
-	public void rsvpMeetup(Meetup meetup) {
-		/*
-		 * TODO
-		 */
+	public void rsvpMeetup(Meetup meetup, AsyncResponseInterface callbackObj) {
+		NetworkHandler com = new NetworkHandler();
+		com.asyncCallback = callbackObj;
+		
+		String GET = "/rsvpMeetup/?";
+		GET += "eventId=" + meetup.getEventId();
+		
+		com.execute(GET);
 	}
 	
-	public void updateMeetups() {
-		/*
-		 * TODO
-		 * this one is most possible right now
-		 */
+	public void checkForUpdate(Meetup meetup, AsyncResponseInterface callbackObj) {
+		NetworkHandler com = new NetworkHandler();
+		com.asyncCallback = callbackObj;
+		
+		String GET = "/checkForUpdate/?";
+		GET += "eventId=" + meetup.getEventId();
+		
+		com.execute(GET);
 	}
 	
-	
+	public void pullMeetup(Meetup meetup, AsyncResponseInterface callbackObj) {
+		NetworkHandler com = new NetworkHandler();
+		com.asyncCallback = callbackObj;
+		
+		String GET = "/pullMeetup/?";
+		GET += "eventId" + meetup.getEventId();
+		
+		com.execute(GET);
+	}
 	
 	
 	private class NetworkHandler extends AsyncTask<String, String, String> {
