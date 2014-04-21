@@ -131,22 +131,19 @@ public class NewMeetingLocationActivity extends Activity {
 						meetingDateTime, contactNumbers, contactNumbers, null, null, NewMeetingLocationActivity.this.getApplicationContext()
 						);
 				
+				//if network online, them sync with server right away
 				if (mNetwork.isOnline()) {
+					Toast.makeText(getApplicationContext(), "Creating & Notifying!", Toast.LENGTH_SHORT).show();
 					mNetwork.newMeetup(meet, new newMeetupCallback());
 				}
 				else {
+					//else just save locally
+					Toast.makeText(getApplicationContext(), "No network, saving for later!", Toast.LENGTH_SHORT).show();
 					DbBuilder.addMeetup(meet);
 				}
 				
-				/*
-				Intent intent = new Intent(NewMeetingLocationActivity.this, MainActivity.class);
-				intent.putExtra("checkedContacts", checkedContacts); 	//send checkedContacs to new intent
-				intent.putExtra("latLng", location);					//send location to new intent
-				intent.putExtra("meetingName", meetingName);
-				intent.putExtra("meetingTime", meetingDateTime);
-				startActivity(intent);
-				*/
-				
+				//can only submit this meetup once
+				createMeetingButton.setEnabled(false);
 			}}
 		);
 		
@@ -203,18 +200,7 @@ public class NewMeetingLocationActivity extends Activity {
 	/*
 	 * -----------------------callbacks----------------------------
 	 */
-	
-	class registerUserCallback implements AsyncResponseInterface {
-		public void asyncCallback(String res) {
-			Toast.makeText(getApplicationContext(), "Registered on server!", Toast.LENGTH_SHORT).show();
-		}
-	}
 
-	class updateUserRegistrationCallback implements AsyncResponseInterface {
-		public void asyncCallback(String res) {
-			Toast.makeText(getApplicationContext(), "Updated registration", Toast.LENGTH_SHORT).show();
-		}
-	}
 
 	class newMeetupCallback implements AsyncResponseInterface {
 		public void asyncCallback(String res) {
@@ -235,64 +221,14 @@ public class NewMeetingLocationActivity extends Activity {
 			Meetup m = new Meetup(eventId, eventName, hostId, hostName, lat, lng, 
 					datetime, inviteds, invitedsNames, invitedsStatuses, invitedsRatings, getApplicationContext());	
 			
+			//I REALLY HOPE THIS WORKS... I'm worried that somehow the containing Activity object gets destroyed
+			//and the DbBuilder reference dies too...
+			//hopefully java is that smart
+			//can try turning the constructor for this callback to to save a reference to DbBuilder manually  
 			DbBuilder.addMeetup(m);
 		}
 	}
 
-	class joinMeetupCallback implements AsyncResponseInterface {
-		public void asyncCallback(String res) {
-			//eventId=...&eventname=&hostId=...&hostName=...&lat=&long=&datetime=&inviteds=...&invitedsNames=...&invitedsStatuses=...&invitedsRatings=...
-			String[] data = res.split("&");
-			int eventId = Integer.parseInt(data[0].split("=")[1]);
-			String eventName = data[1].split("=")[1];
-			String hostId = data[2].split("=")[1];	//this is the difference from above!
-			String hostName = data[3].split("=")[1];	//and this
-			String lat = data[4].split("=")[1];
-			String lng = data[5].split("=")[1];
-			String datetime = data[6].split("=")[1];
-			ArrayList<String> inviteds = Helper.parseToStringList(data[7].split("=")[1], ";");
-			ArrayList<String> invitedsNames = Helper.parseToStringList(data[8].split("=")[1], ";");
-			ArrayList<String> invitedsStatuses = Helper.parseToStringList(data[9].split("=")[1], ";");
-			ArrayList<Integer> invitedsRatings = Helper.parseToIntegerList(data[10].split("=")[1], ";");
 
-			Meetup m = new Meetup(eventId, eventName, hostId, hostName, lat, lng, 
-					datetime, inviteds, invitedsNames, invitedsStatuses, invitedsRatings, getApplicationContext());	
-			
-			DbBuilder.addMeetup(m);
-		}
-	}
-
-	class rsvpMeetupCallback implements AsyncResponseInterface {
-		public void asyncCallback(String res) {
-			//res = "eventId=000"
-			String[] idSet = res.split("=");
-			int eventId = Integer.parseInt(idSet[1]);
-			DbBuilder.rsvpMeetup(eventId);
-		}
-	}
-
-	class updateMeetupCallback implements AsyncResponseInterface {
-		public void asyncCallback(String res) {
-			//eventId=...&eventname=&hostId=...&hostName=...&lat=&long=&datetime=&inviteds=...&invitedsNames=...&invitedsStatuses=...&invitedsRatings=...
-			String[] data = res.split("&");
-			int eventId = Integer.parseInt(data[0].split("=")[1]);
-			String eventName = data[1].split("=")[1];
-			String hostId = data[2].split("=")[1];	//this is the difference from above!
-			String hostName = data[3].split("=")[1];	//and this
-			String lat = data[4].split("=")[1];
-			String lng = data[5].split("=")[1];
-			String datetime = data[6].split("=")[1];
-			ArrayList<String> inviteds = Helper.parseToStringList(data[7].split("=")[1], ";");
-			ArrayList<String> invitedsNames = Helper.parseToStringList(data[8].split("=")[1], ";");
-			ArrayList<String> invitedsStatuses = Helper.parseToStringList(data[9].split("=")[1], ";");
-			ArrayList<Integer> invitedsRatings = Helper.parseToIntegerList(data[10].split("=")[1], ";");
-
-			Meetup m = new Meetup(eventId, eventName, hostId, hostName, lat, lng, 
-					datetime, inviteds, invitedsNames, invitedsStatuses, invitedsRatings, getApplicationContext());	
-			
-			DbBuilder.updateMeetup(m);
-
-		}
-	}
 
 }

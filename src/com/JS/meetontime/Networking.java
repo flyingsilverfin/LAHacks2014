@@ -186,8 +186,10 @@ public class Networking {
 			url = baseUrl + url;
 
 			HttpGet httpGet = new HttpGet(url);
-			String responseString = "";
-
+			String responseString = "HELLO, YOU ENTERED: " + url;
+			Log.i(TAG, responseString);
+			
+			/*
 			try {
 				HttpResponse response = client.execute(httpGet);
 				Log.i(TAG, "SUCCESS");
@@ -211,6 +213,7 @@ public class Networking {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			*/
 
 			return responseString;
 		}

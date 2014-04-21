@@ -34,17 +34,12 @@ public class Helper {
 	public static int getLocalCounter(Context context) {
 		SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
 		int tempId = prefs.getInt("localTempCounter", -1);
-		incrementLocalCounter(context);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt("localTempCounter", tempId+1);
+		editor.commit();
 		return tempId;
 	}
-	
-	private static void incrementLocalCounter(Context context) {
-		SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putInt("localTemptCounter", getLocalCounter(context)+1);
-		editor.commit();
-	}
-	
+
 	
 	/*
 	 * Private file edits

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.widget.Toast;
 
 public class tmp {
+	/*
 	class registerUserCallback implements AsyncResponseInterface {
 		public void asyncCallback(String res) {
 			Toast.makeText(getApplicationContext(), "Registered on server!", Toast.LENGTH_SHORT).show();
@@ -16,7 +17,6 @@ public class tmp {
 			Toast.makeText(getApplicationContext(), "Updated registration", Toast.LENGTH_SHORT).show();
 		}
 	}
-
 	class newMeetupCallback implements AsyncResponseInterface {
 		public void asyncCallback(String res) {
 			//eventId=...&eventname=&hostId=...&hostName=...&lat=&long=&datetime=&inviteds=...&invitedsNames=...&invitedsStatuses=...&invitedsRatings=...
@@ -55,9 +55,9 @@ public class tmp {
 			ArrayList<String> invitedsNames = Helper.parseToStringList(data[8].split("=")[1], ";");
 			ArrayList<String> invitedsStatuses = Helper.parseToStringList(data[9].split("=")[1], ";");
 			ArrayList<Integer> invitedsRatings = Helper.parseToIntegerList(data[10].split("=")[1], ";");
-			
+
 			Meetup m = new Meetup(eventId, eventName, hostId, hostName, lat, lng, 
-					datetime, inviteds, invitedsNames, invitedsNames, invitedsStatuses, invitedsRatings);
+					datetime, inviteds, invitedsNames, invitedsStatuses, invitedsRatings, getApplicationContext());	
 			
 			DbBuilder.addMeetup(m);
 		}
@@ -95,4 +95,5 @@ public class tmp {
 
 		}
 	}
+	*/
 }

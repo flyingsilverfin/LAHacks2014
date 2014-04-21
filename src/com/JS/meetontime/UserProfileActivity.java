@@ -42,7 +42,7 @@ public class UserProfileActivity extends Activity {
 		
 		Log.i(TAG,"In userprofileActivity");
 		
-		mDatabaseBuilder = new DatabaseBuilder(mMeetupList);
+		//mDatabaseBuilder = new DatabaseBuilder(mMeetupList);
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -105,7 +105,7 @@ public class UserProfileActivity extends Activity {
 		
 		for (String primaryKey : primaryKeys) {
 			Log.i(TAG, "primaryKey " + primaryKey);
-			mDatabaseBuilder.build(Integer.parseInt(primaryKey), userId,  userName);
+			//mDatabaseBuilder.build(Integer.parseInt(primaryKey), userId,  userName);
 		}
 		Log.i(TAG,"Completed submitting rebuilding tasks to Async");
 	}

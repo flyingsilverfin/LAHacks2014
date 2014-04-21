@@ -1,11 +1,12 @@
 package com.JS.meetontime;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,7 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.content.Context;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
@@ -134,8 +135,8 @@ public class MainActivity extends Activity {
 					Log.d(TAG, "Commited userName, userNumber, and firstTime");
 					logInText();
 					
-					ServerCommunicator s = new ServerCommunicator(getApplicationContext());
-					s.registerUser();
+					Networking network = new Networking(getApplicationContext());
+					network.registerUser(new registerUserCallback());
 				}
 			});
 		
@@ -151,5 +152,14 @@ public class MainActivity extends Activity {
 	}
 	
 
+	/*
+	 * --------------------callbacks-----------------------
+	 */
+	
+	class registerUserCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			Toast.makeText(getApplicationContext(), "Registered on server!", Toast.LENGTH_SHORT).show();
+		}
+	}
 
 }

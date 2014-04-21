@@ -82,8 +82,12 @@ public class Meetup{
 		return mLong;
 	}
 	
-	public String getFormattedDate() {
+	public String getHumanDate() {
 		return readableDateFormat.format(mDate);
+	}
+	
+	public String getFormattedDate() {
+		return dateFormat.format(mDate);
 	}
 	
 	public boolean youAreHost() {
