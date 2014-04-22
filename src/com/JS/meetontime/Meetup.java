@@ -123,6 +123,17 @@ public class Meetup{
 		return inviteds.toString();			
 	}
 	
+	public String getInvitedsNamesString() {
+		StringBuilder names = new StringBuilder();
+		for (String s : mInvitedsNames) {
+			names.append(s);
+			names.append(";");
+		}
+		
+		names.deleteCharAt(names.length()-1);
+		return names.toString();
+	}
+	
 	public boolean isTransmitted() {
 		return isTransmitted;
 	}

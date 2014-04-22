@@ -42,13 +42,13 @@ public class DatabaseBuilder {
 
 	//add new meetup to database
 	//either one you're hosting or one you're joining
-	public synchronized void addMeetup(Meetup meetup) {
+	public synchronized boolean addMeetup(Meetup meetup) {
 		//since a new meetup we just made won't have the unique Id yet
 		//if it's not transmitted then check by hostId, latitude, longitude, and datetime
 		if (meetup.isTransmitted()) {
 			if (haveTransmittedMeetupWithId(meetup.getEventId())) {
 				Log.e(TAG, "Event with Id " + meetup.getEventId() + " already exists in database!");
-				return;
+				return false;
 			}
 		}
 		else {
@@ -57,10 +57,11 @@ public class DatabaseBuilder {
 			//check event id that is assigned locally
 			if (haveUntransmittedMeetupWithid(meetup.getEventId())) {
 				Log.e(TAG, "Untransmitted event with Id by " + meetup.getEventId() + " already exists in database!");
-				return;
+				return false;
 			}
 		}
 		mMeetups.add(meetup);	
+		return true;
 	}
 	
 	
@@ -70,14 +71,14 @@ public class DatabaseBuilder {
 	//to save internet connection data, should save a timestamp of last time it was updated here
 	//compare to timestamp of updates on server
 	//if different, call this function with updated meetup
-	public synchronized void updateMeetup(Meetup meetup) {
+	public synchronized boolean updateMeetup(Meetup meetup) {
 		int index;
 		
 		if (meetup.isTransmitted()) {
 			index = findTransmittedMeetupWithId(meetup.getEventId());
 			if (index == -1) {
 				Log.e(TAG, "Event with Id " + meetup.getEventId() + " doesn't exist in database yet, cannot update it!");
-				return;
+				return false;
 			}
 		}
 		else {
@@ -87,32 +88,34 @@ public class DatabaseBuilder {
 			//check event id that is assigned locally
 			if (index == -1) {
 				Log.e(TAG, "Untransmitted Event with Id " + meetup.getEventId() + " doesn't exist in database yet, cannot update it!");
-				return;
+				return false;
 			}
 		}
 	
 		mMeetups.add(index, meetup); //overwrite that meetup
+		return true;
 	}
 	
 	
 	/*
 	 * calling this means the meetup is already transmitted yay
 	 */
-	public synchronized void rsvpMeetup(int meetupId) {
+	public synchronized boolean rsvpMeetup(int meetupId) {
 		int index = findTransmittedMeetupWithId(meetupId);
 		if (index == -1) {
 			Log.e(TAG, "Event with Id " + meetupId  + "doesn't exist in database, cannot rsvp!");
-			return;
+			return false;
 		}
 		
 		mMeetups.get(index).rsvp();
+		return true;
 	}
 	
 	
 	
 	//another part of the program will check each meetup to see if it still exists on server
 	//if not, pass here to remove from database
-	public synchronized void removeMeetup(Meetup meetup) {
+	public synchronized boolean removeMeetup(Meetup meetup) {
 		
 		int index;
 		
@@ -120,7 +123,7 @@ public class DatabaseBuilder {
 			index = findTransmittedMeetupWithId(meetup.getEventId());
 			if (index == -1) {
 				Log.e(TAG, "Event with Id " + meetup.getEventId() + " doesn't exist in database yet, cannot delete it!");
-				return;
+				return false;
 			}
 		}
 		else {
@@ -130,11 +133,12 @@ public class DatabaseBuilder {
 			//check event id that is assigned locally
 			if (index == -1) {
 				Log.e(TAG, "Untransmitted Event with Id " + meetup.getEventId() + " doesn't exist in database yet, cannot delete it!");
-				return;
+				return false;
 			}
 		}
 		
 		mMeetups.remove(index);
+		return true;
 	}
 	
 	

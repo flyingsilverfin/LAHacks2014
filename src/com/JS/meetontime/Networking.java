@@ -125,6 +125,7 @@ public class Networking {
 		GET += "&long=" + meetup.getLong();
 		GET += "&datetime=" + meetup.getFormattedDate();
 		GET += "&inviteds=" + meetup.getInvitedsString();
+		GET += "&invitedsNames=" + meetup.getInvitedsNamesString();
 		
 		com.execute(GET);	
 	}
@@ -186,10 +187,10 @@ public class Networking {
 			url = baseUrl + url;
 
 			HttpGet httpGet = new HttpGet(url);
-			String responseString = "HELLO, YOU ENTERED: " + url;
+			//String responseString = "HELLO, YOU ENTERED: " + url;
 			
 			//testing for new meetup:
-			//responseString = "eventId=0&eventname=HELLO&hostId=ME&hostName=JoshuaSend&lat=301.01928394&long=118.01840582&datetime=2014-04-2020:20:20&inviteds=8584365309&invitedsNames=NilminiSilvasend&invitedsStatuses=false&invitedsRatings=4.02";
+			String responseString = "eventId=0&eventname=HELLO&hostId=ME&hostName=JoshuaSend&lat=301.01928394&long=118.01840582&datetime=2014-04-2020:20:20&inviteds=8584365309&invitedsNames=NilminiSilvasend&invitedsStatuses=false&invitedsRatings=4.02";
 			
 			
 			

@@ -128,7 +128,7 @@ public class NewMeetingLocationActivity extends Activity {
 				Meetup meet = new Meetup(Helper.getLocalCounter(NewMeetingLocationActivity.this), meetingName,
 						Helper.getUserNumber(NewMeetingLocationActivity.this), Helper.getUserName(NewMeetingLocationActivity.this),
 						String.format("11.8f", location.latitude), String.format("11.8f", location.longitude),
-						meetingDateTime, contactNumbers, contactNumbers, null, null, NewMeetingLocationActivity.this.getApplicationContext()
+						meetingDateTime, contactNumbers, contactNames, null, null, NewMeetingLocationActivity.this.getApplicationContext()
 						);
 				
 				//if network online, them sync with server right away
@@ -220,6 +220,7 @@ public class NewMeetingLocationActivity extends Activity {
 
 			Meetup m = new Meetup(eventId, eventName, hostId, hostName, lat, lng, 
 					datetime, inviteds, invitedsNames, invitedsStatuses, invitedsRatings, getApplicationContext());	
+			m.setTransmitted(eventId); //set transmitted (must be if we're here), and set the official eventId
 			
 			//I REALLY HOPE THIS WORKS... I'm worried that somehow the containing Activity object gets destroyed
 			//and the DbBuilder reference dies too...
