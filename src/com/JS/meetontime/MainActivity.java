@@ -1,5 +1,7 @@
 package com.JS.meetontime;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -137,6 +139,8 @@ public class MainActivity extends Activity {
 					
 					Networking network = new Networking(getApplicationContext());
 					network.registerUser(new registerUserCallback());
+					
+					Helper.writeFile(getApplicationContext(), Helper.meetupFile, new ArrayList<String>());
 				}
 			});
 		

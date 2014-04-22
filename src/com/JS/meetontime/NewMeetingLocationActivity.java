@@ -124,7 +124,7 @@ public class NewMeetingLocationActivity extends Activity {
 					contactNumbers.add(checkedContacts.get(i)[1]);
 				}
 
-								
+				//the location.lat and location.long aren't working...
 				Meetup meet = new Meetup(Helper.getLocalCounter(NewMeetingLocationActivity.this), meetingName,
 						Helper.getUserNumber(NewMeetingLocationActivity.this), Helper.getUserName(NewMeetingLocationActivity.this),
 						String.format("11.8f", location.latitude), String.format("11.8f", location.longitude),

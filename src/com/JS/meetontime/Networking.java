@@ -184,7 +184,7 @@ public class Networking {
 			String url = urls[0];
 
 			Log.i(TAG, "url: " + baseUrl + url);
-			url = baseUrl + url;
+			url = (baseUrl + url).replace(" ", "");
 
 			HttpGet httpGet = new HttpGet(url);
 			//String responseString = "HELLO, YOU ENTERED: " + url;
