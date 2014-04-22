@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 		editor = sharedPref.edit();
 		if(sharedPref.getBoolean("firstTime", true)){
 			editor.putBoolean("isRegisteredOnServer", false);
+			Helper.writeFile(getApplicationContext(), Helper.meetupFile, new ArrayList<String>());
 			promptUser();
 		} else {
 			userName = sharedPref.getString("userName", "userName");
@@ -140,7 +141,6 @@ public class MainActivity extends Activity {
 					Networking network = new Networking(getApplicationContext());
 					network.registerUser(new registerUserCallback());
 					
-					Helper.writeFile(getApplicationContext(), Helper.meetupFile, new ArrayList<String>());
 				}
 			});
 		

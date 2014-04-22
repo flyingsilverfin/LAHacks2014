@@ -23,5 +23,7 @@
     <string name="userProfileText">My Meetups</string>
     <string name="userNameProfile">User</string>
     <string name="dateTime">Date/Time:</string>
+    <string name="title_activity_meetup_list">MeetupListActivity</string>
+    <string name="title_activity_meetup_detail">MeetupDetailActivity</string>
 
 </resources>
