@@ -130,7 +130,7 @@ public class MainActivity extends Activity {
 					editor.putString("userName", userName);
 					Log.d(TAG, "Name stored as: " + userName);
 					
-					userNumber = phoneInput.getText().toString();
+					userNumber = Helper.removeNonDigits(phoneInput.getText().toString());
 					editor.putString("userNumber", userNumber);
 					Log.d(TAG, "Phone Number stored as: " + userNumber);
 					editor.putBoolean("firstTime", false);

@@ -156,8 +156,22 @@ public class Helper {
 		return str.toString();
 	}
 	
+	public static String removeNonDigits(String str) {
+		StringBuilder s = new StringBuilder();
+		for (int i = 0; i < str.length(); i++) {
+			if (isDigit(str.charAt(i))) {
+				s.append(str.charAt(i));
+			}
+		}
+		return s.toString();
+	}
+	
 	public static boolean isUpperCase(char ch) {
 	    return ch >= 'A' && ch <= 'Z';
+	}
+	
+	public static boolean isDigit(char ch) {
+		return ch >= '0' && ch <= '9';
 	}
 	
 	
