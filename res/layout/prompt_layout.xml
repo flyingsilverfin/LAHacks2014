@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text" >
+        android:inputType="textCapWords" >
 
         <requestFocus />
     </EditText>
@@ -25,9 +25,9 @@
         android:id="@+id/phoneNumText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/enterPNum"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginTop="10dp"/>
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/phoneNumValue"
