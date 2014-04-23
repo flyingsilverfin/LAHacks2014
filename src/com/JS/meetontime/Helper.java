@@ -126,6 +126,7 @@ public class Helper {
 		
 		return l;
 	}
+
 	
 	public static ArrayList<Float> parseToFloatList(String str, String splitChar) {
 		ArrayList<Float> l = new ArrayList<Float>();
@@ -137,5 +138,27 @@ public class Helper {
 		
 		return l;
 	}
+	
+	
+	public static String capsToSpaces(String camelCaseString) {
+		StringBuilder str = new StringBuilder();
+		int lastSpace = 0;
+		for (int i = 0; i < camelCaseString.length(); i++) {
+			if (isUpperCase(camelCaseString.charAt(i))) {
+				str.append(camelCaseString.substring(lastSpace, i));
+				str.append(" ");
+				lastSpace = i;
+			}
+		}
+		
+		str.append(camelCaseString.substring(lastSpace));
+		
+		return str.toString();
+	}
+	
+	public static boolean isUpperCase(char ch) {
+	    return ch >= 'A' && ch <= 'Z';
+	}
+	
 	
 }

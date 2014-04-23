@@ -2,10 +2,12 @@
 <resources>
 
     <string name="app_name">MeetOnTime</string>
+    <string name="app_name_spaced">Meet On Time</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="newMeeting">New Meeting</string>
+    <string name="newMeeting">New Event</string>
     <string name="joinMeeting">Join Meeting</string>
+    <string name="joinMeetingHeaderText">Join Meetup</string>
     <string name="gpsCheck">GPS Check</string>
     <string name="title_activity_create_meeting">CreateMeetingActivity</string>
     <string name="roomName">Room Name:</string>
@@ -16,8 +18,8 @@
     <string name="namePrompt">Enter Name:</string>
     <string name="enterPNum">Enter Phone Number:</string>
     <string name="meetingTime">Meetup Time:</string>
-    <string name="title_activity_join_meeting">JoinMeeting</string>
-    <string name="meetingID">Enter the Meeting ID:</string>
+    <string name="title_activity_join_meeting">JoinEvent</string>
+    <string name="meetingID">Enter the Event ID:</string>
     <string name="meetingConnect">Connect</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="userProfileText">My Meetups</string>

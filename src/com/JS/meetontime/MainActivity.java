@@ -152,7 +152,7 @@ public class MainActivity extends Activity {
 	
 	public void logInText(){
 		loggedInText = (TextView)findViewById(R.id.loggedInText);
-		loggedInText.setText("Logged in as: " + userName);
+		loggedInText.setText(Helper.capsToSpaces(userName));
 	}
 	
 

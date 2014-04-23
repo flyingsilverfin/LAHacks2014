@@ -28,7 +28,7 @@ public class JoinMeeting extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_join_meeting);
+		setContentView(R.layout.activity_join_meetup);
 
 		mDbBuilder = DatabaseBuilder.getDatabaseBuilder(getApplicationContext());
 		mNetworking = new Networking(getApplicationContext());
@@ -97,7 +97,7 @@ public class JoinMeeting extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_join_meeting,
+			View rootView = inflater.inflate(R.layout.fragment_join_meetup,
 					container, false);
 			return rootView;
 		}
