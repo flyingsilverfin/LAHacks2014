@@ -104,6 +104,12 @@ public class JoinMeeting extends Activity {
 	}
 
 	
+	protected void onDestroy() {
+		mDbBuilder.write();
+		super.onDestroy();
+
+	}
+	
 	/*
 	 * -----------------callbacks-----------------
 	 */

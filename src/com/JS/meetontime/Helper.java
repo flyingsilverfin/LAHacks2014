@@ -51,9 +51,10 @@ public class Helper {
 			
 			for (String s : contents) {
 				writer.write(s);
-				writer.newLine(); //probably just write "\n"
+				writer.newLine(); //probably just writes "\n"
 			}
 			
+			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();		
 		} //could be writing error or file opening error
@@ -72,6 +73,7 @@ public class Helper {
 				lines.add(line);
 				line = reader.readLine();
 			}
+			reader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -87,6 +89,7 @@ public class Helper {
 				writer.write(s);
 				writer.newLine(); //probably just write "\n"
 			}
+			writer.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();		
@@ -155,6 +158,14 @@ public class Helper {
 		
 		return str.toString();
 	}
+	
+	
+	public static void printArrayList(ArrayList<String> list) {
+		for (String s : list) {
+			System.out.println(s);
+		}
+	}
+	
 	
 	public static String removeNonDigits(String str) {
 		StringBuilder s = new StringBuilder();

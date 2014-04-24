@@ -7,11 +7,10 @@
     <string name="newMeeting">New Event</string>
     <string name="joinMeeting">Join Event</string>
     <string name="joinMeetingHeaderText">Join Event</string>
-    <string name="gpsCheck">GPS Check</string>
     <string name="title_activity_create_meeting">CreateMeetingActivity</string>
     <string name="create_meeting_activity_header_text">Create Event</string>
-    <string name="roomName">Room Name:</string>
-    <string name="meetUpName">Event Name:</string>
+    <string name="stringName">Name:</string>
+    <string name="chooseInvitees">Invite people:</string>
     <string name="title_activity_new_meeting_location">NewMeetingLocationActivity</string>
     <string name="new_meeting_location_activity_header_text">Set Event Location</string>
     <string name="nextMapButton">Next</string>

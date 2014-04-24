@@ -40,7 +40,7 @@ public class NewMeetingLocationActivity extends Activity {
 	private LocatorClass locator;
 
 	private Networking mNetwork;
-	private DatabaseBuilder DbBuilder;
+	private DatabaseBuilder mDbBuilder;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +151,7 @@ public class NewMeetingLocationActivity extends Activity {
 					Toast.makeText(getApplicationContext(),
 							"No network, saving for later!", Toast.LENGTH_SHORT)
 							.show();
-					DbBuilder.addMeetup(meet);
+					mDbBuilder.addMeetup(meet);
 				}
 
 				// can only submit this meetup once
@@ -160,7 +160,7 @@ public class NewMeetingLocationActivity extends Activity {
 		});
 
 		mNetwork = new Networking(getApplicationContext());
-		DbBuilder = DatabaseBuilder.getDatabaseBuilder(getApplicationContext());
+		mDbBuilder = DatabaseBuilder.getDatabaseBuilder(getApplicationContext());
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -204,6 +204,11 @@ public class NewMeetingLocationActivity extends Activity {
 			return rootView;
 		}
 	}
+	
+	protected void onDestroy() {
+		mDbBuilder.write();
+		super.onDestroy();
+	}
 
 	/*
 	 * -----------------------callbacks----------------------------
@@ -242,7 +247,7 @@ public class NewMeetingLocationActivity extends Activity {
 			// hopefully java is that smart
 			// can try turning the constructor for this callback to to save a
 			// reference to DbBuilder manually
-			DbBuilder.addMeetup(m);
+			mDbBuilder.addMeetup(m);
 		}
 	}
 

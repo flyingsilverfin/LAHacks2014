@@ -1,44 +1,47 @@
 package com.JS.meetontime;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.ListActivity;
+import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.FragmentManager;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.text.Editable;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.SparseBooleanArray;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.os.Build;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class CreateMeetingActivity extends Activity implements OnItemClickListener{
 	protected static final String TAG = "CreateMeeting";
@@ -48,10 +51,12 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
     private Button meetingTime;
     private Button meetDatePicker;
     private CheckBox pm;
-    private String date;
-    private String time;
+    private String date = "";
+    private String time = "";
     MyAdapter ma ;
     Button select;
+    
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM dd, yyyy");
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,7 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
             @SuppressLint("ShowToast")
 			@Override
             public void onClick(View v) {
-                    ArrayList<String[]> checkedcontacts = new ArrayList<String[]>();
+                ArrayList<String[]> checkedcontacts = new ArrayList<String[]>();
                 int checkedContactsSize = 0;
                 for(int i = 0; i < name1.size(); i++)
 
@@ -85,15 +90,27 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
                          checkedContactsSize++;
                     }
                 }
-             meetingName = (EditText) findViewById(R.id.meetingName);
-             String meetingNameString = meetingName.getText().toString();
+	             meetingName = (EditText) findViewById(R.id.meetingName);
+	             String meetingNameString = meetingName.getText().toString();
+	             if (meetingNameString.length() == 0) {
+	            	 Toast.makeText(CreateMeetingActivity.this, "Enter a name", Toast.LENGTH_SHORT).show();
+	            	 return;
+	             }
+	             if (date.length() == 0 || time.length() == 0) {
+	            	 Toast.makeText(CreateMeetingActivity.this, "Must set a time and date", Toast.LENGTH_SHORT).show();
+	            	 return;
+	             }
+	             if (checkedcontacts.size() == 0) {
+	            	 Toast.makeText(CreateMeetingActivity.this, "You haven't invited anyone!", Toast.LENGTH_SHORT).show();
+	            	 return;
+	             }
 
-             Intent intent = new Intent(CreateMeetingActivity.this, NewMeetingLocationActivity.class);
-             intent.putExtra("checkedContacts", checkedcontacts);
-             intent.putExtra("meetingName", meetingNameString);
-             intent.putExtra("meetingDateTime", date + time);
-             startActivity(intent);
-                //Toast.makeText(CreateMeetingActivity.this, checkedcontacts,1000).show();
+	             Intent intent = new Intent(CreateMeetingActivity.this, NewMeetingLocationActivity.class);
+	             intent.putExtra("checkedContacts", checkedcontacts);
+	             intent.putExtra("meetingName", meetingNameString);
+	             intent.putExtra("meetingDateTime", date + time);
+	             startActivity(intent);
+	             //Toast.makeText(CreateMeetingActivity.this, checkedcontacts,1000).show();
             }
         });
         
@@ -160,7 +177,7 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 		ma.toggle(arg2);
 	}
 	
-    public  void getAllContacts(ContentResolver cr) {
+    public void getAllContacts(ContentResolver cr) {
 
         Cursor phones = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null, Phone.DISPLAY_NAME + " ASC");
         while (phones.moveToNext())
@@ -235,21 +252,21 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 
             return vi;
         }
-         public boolean isChecked(int position) {
-                return mCheckStates.get(position, false);
-            }
+        public boolean isChecked(int position) {
+        	return mCheckStates.get(position, false);
+        }
 
-            public void setChecked(int position, boolean isChecked) {
-                mCheckStates.put(position, isChecked);
-            }
+		public void setChecked(int position, boolean isChecked) {
+			mCheckStates.put(position, isChecked);
+		}
 
-            public void toggle(int position) {
-                setChecked(position, !isChecked(position));
-            }
+        public void toggle(int position) {
+            setChecked(position, !isChecked(position));
+        }
         @Override
         public void onCheckedChanged(CompoundButton buttonView,
                 boolean isChecked) {
-             mCheckStates.put((Integer) buttonView.getTag(), isChecked);         
+        	mCheckStates.put((Integer) buttonView.getTag(), isChecked);         
         }   
     }
 	
@@ -264,7 +281,13 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 	}
 	
 	public void populateSetDate(int year, int month, int day) {
-		meetDatePicker.setText(year + "-" + month + "-" + day);
+		
+		Calendar c = Calendar.getInstance();
+		c.set(year, month-1,  day);
+		Date d = c.getTime();
+		String dateString = dateFormatter.format(d);
+		
+		meetDatePicker.setText(dateString);
 		String tMonth = "" + month;
 		String tDay = "" + day;
 		if(month < 10)

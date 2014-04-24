@@ -6,14 +6,77 @@
     tools:context="com.JS.meetontime.CreateMeetingActivity"
     tools:ignore="MergeRootFrame" >
 
-    <EditText
-        android:id="@+id/meetingName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView1"
-        android:layout_toRightOf="@+id/textView1"
-        android:ems="10"
-        android:inputType="text" />
+    <LinearLayout
+        android:id="@+id/createEventActivityContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="2dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="@string/stringName"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/meetingName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:hint="Event name"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/meetingTimeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Time" />
+
+            <Button
+                android:id="@+id/meetDatePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Date" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#66555555"
+            android:gravity="center"
+            android:text="@string/chooseInvitees"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ListView
+            android:id="@+id/lv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </LinearLayout>
 
     <Button
         android:id="@+id/button1"
@@ -21,44 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/nextMapButton"
-        android:background="@drawable/custom_button" />
-
-     <Button
-         android:id="@+id/meetingTimeValue"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignLeft="@+id/meetingName"
-         android:layout_below="@+id/meetingName"
-         android:ems="10"
-         android:text="Time"/>
-
-     <Button
-         android:id="@+id/meetDatePicker"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_alignTop="@+id/meetingTimeValue"
-         android:layout_toLeftOf="@+id/meetingTimeValue"
-         android:ems="10"
-         android:text="Date" />
-
-     <TextView
-         android:id="@+id/textView1"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_alignParentTop="true"
-         android:text="@string/meetUpName"
-         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-     <ListView
-         android:id="@+id/lv"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/meetingTimeValue" >
-     </ListView>
+        android:background="@drawable/custom_button"
+        android:text="@string/nextMapButton" />
 
 </RelativeLayout>
-

@@ -154,7 +154,6 @@ public class MainActivity extends Activity {
 		loggedInText = (TextView)findViewById(R.id.loggedInText);
 		loggedInText.setText(Helper.capsToSpaces(userName));
 	}
-	
 
 	/*
 	 * --------------------callbacks-----------------------

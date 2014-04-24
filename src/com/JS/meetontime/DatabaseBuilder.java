@@ -17,7 +17,7 @@ public class DatabaseBuilder {
 
 	private static final String mMeetupsFile = "meetupsFile";
 	
-	private Gson gson;
+	private Gson gson = new Gson();
 	private Context mContext;
 	
 	private ArrayList<Meetup> mMeetups;
@@ -235,6 +235,7 @@ public class DatabaseBuilder {
 		}
 		
 		Helper.writeFile(mContext, Helper.meetupFile, meetupJson);		
+		Helper.printArrayList(meetupJson);
 	}
 	
 	protected void finalize() {
