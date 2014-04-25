@@ -17,7 +17,7 @@ public class Meetup{
 
 	public static final String TAG = "Meetup"; 
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
-	private static SimpleDateFormat readableDateFormat  = new SimpleDateFormat("HH:mm, MMM dd");
+	private static SimpleDateFormat readableDateFormat  = new SimpleDateFormat("HH:mm, EEEE MMM dd");
 
 	private int mEventId;
 	private String mEventName;

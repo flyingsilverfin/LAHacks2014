@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
 		meetingCheckButton = (Button) findViewById(R.id.meetingCheckButton);
 		meetingCheckButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
-				Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+				Intent intent = new Intent(MainActivity.this, MeetupListActivity.class);
 				startActivity(intent);
 				Log.d(TAG, "Opening User profile activity");
 			}

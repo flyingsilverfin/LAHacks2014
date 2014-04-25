@@ -27,6 +27,8 @@
     <string name="userNameProfile">User</string>
     <string name="dateTime">Date/Time:</string>
     <string name="title_activity_meetup_list">MeetupListActivity</string>
+    <string name="meetup_list_activity_header_text">My Events</string>
     <string name="title_activity_meetup_detail">MeetupDetailActivity</string>
+    <string name="rsvp">rsvp</string>
 
 </resources>

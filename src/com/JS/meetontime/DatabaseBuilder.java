@@ -103,7 +103,7 @@ public class DatabaseBuilder {
 	public synchronized boolean rsvpMeetup(int meetupId) {
 		int index = findTransmittedMeetupWithId(meetupId);
 		if (index == -1) {
-			Log.e(TAG, "Event with Id " + meetupId  + "doesn't exist in database, cannot rsvp!");
+			Log.e(TAG, "Event with Id " + meetupId  + " doesn't exist in database, cannot rsvp!");
 			return false;
 		}
 		
@@ -111,6 +111,16 @@ public class DatabaseBuilder {
 		return true;
 	}
 	
+	
+	public synchronized boolean goingToMeetup(int meetupId) {
+		int index = findTransmittedMeetupWithId(meetupId);
+		if (index == -1) {
+			Log.e(TAG, "Event with Id " + meetupId + " doesn't exist in database, cannot go!");
+			return false;
+		}
+		mMeetups.get(index).setGoing();
+		return true;
+	}
 	
 	
 	//another part of the program will check each meetup to see if it still exists on server

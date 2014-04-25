@@ -74,7 +74,7 @@
         </activity>
         <activity
             android:name="com.JS.meetontime.MeetupListActivity"
-            android:label="@string/title_activity_meetup_list" >
+            android:label="@string/meetup_list_activity_header_text" >
         </activity>
         <activity
             android:name="com.JS.meetontime.MeetupDetailActivity"

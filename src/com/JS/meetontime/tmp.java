@@ -71,6 +71,15 @@ public class tmp {
 			DbBuilder.rsvpMeetup(eventId);
 		}
 	}
+	
+
+	class goingToMeetupCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			String[] idSet = res.split("=");
+			int eventId = Integer.parseInt(idSet[1]);
+			DbBuilder.goingToMeetup(eventId);
+		}
+	}
 
 	class updateMeetupCallback implements AsyncResponseInterface {
 		public void asyncCallback(String res) {
