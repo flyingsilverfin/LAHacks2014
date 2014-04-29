@@ -128,6 +128,10 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 				selectTime();
 			}});
 		
+        
+        //update the checker as to where we are
+        ContinuousNetworkChecker.getInstance(this).setStatusView(findViewById(R.id.networkStatusBar));
+        
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();

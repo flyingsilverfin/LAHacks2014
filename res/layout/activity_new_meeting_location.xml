@@ -4,9 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.JS.meetontime.NewMeetingLocationActivity"
-    tools:ignore="MergeRootFrame" 
-    
-    >
+    tools:ignore="MergeRootFrame" >
+
+    <View
+        android:id="@+id/networkStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="#88FF0000" />
 
     <fragment
         android:id="@+id/locationMap"
@@ -15,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="55dp"
-        android:layout_marginBottom="65dp" />
+        android:layout_marginBottom="65dp"
+        android:layout_marginTop="55dp" />
 
     <TextView
         android:id="@+id/textView1"
@@ -38,4 +43,3 @@
         android:text="@string/createMeetingButton" />
 
 </RelativeLayout>
-

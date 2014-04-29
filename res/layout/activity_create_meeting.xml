@@ -6,6 +6,13 @@
     tools:context="com.JS.meetontime.CreateMeetingActivity"
     tools:ignore="MergeRootFrame" >
 
+    <View
+        android:id="@+id/networkStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="#88FF0000" />
+
     <LinearLayout
         android:id="@+id/createEventActivityContainer"
         android:layout_width="match_parent"

@@ -65,7 +65,7 @@
             android:value="AIzaSyBdpY9rLDSqL7HUWXFQTdKqW_XHM8U6EZs" />
 
         <activity
-            android:name="com.JS.meetontime.JoinMeeting"
+            android:name="com.JS.meetontime.JoinMeetingActivity"
             android:label="@string/joinMeetingHeaderText" >
         </activity>
         <activity

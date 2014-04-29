@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class JoinMeeting extends Activity {
+public class JoinMeetingActivity extends Activity {
 	
 	private static final String TAG = "JoinMeeting";
 
@@ -59,7 +59,10 @@ public class JoinMeeting extends Activity {
 		});
 		
 		
-		
+        //update the checker as to where we are
+        ContinuousNetworkChecker.getInstance(this).setStatusView(findViewById(R.id.networkStatusBar));		
+        
+        
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();

@@ -1,39 +1,17 @@
-	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.JS.meetontime.JoinMeeting"
+    tools:context="com.JS.meetontime.JoinMeetingActivity"
     tools:ignore="MergeRootFrame" >
-<!--
-    <LinearLayout
-        android:id="@+id/join_meetup_header_container"
+
+    <View
+        android:id="@+id/networkStatusBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
         android:layout_alignParentTop="true"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/joinMeetingHeader"
-                style="@style/ActivityHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/joinMeetingHeaderText" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
-    </LinearLayout>
-  -->
+        android:background="#88FF0000" />
 
     <LinearLayout
         android:layout_width="match_parent"

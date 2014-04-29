@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
 		joinMeetingButton.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, JoinMeeting.class);
+				Intent intent = new Intent(MainActivity.this, JoinMeetingActivity.class);
 				startActivity(intent);
 			}});
 		
@@ -89,6 +89,11 @@ public class MainActivity extends Activity {
 				promptUser();
 			}});
 		
+		
+		Log.v(TAG, "creating network checker");
+		ContinuousNetworkChecker checker = ContinuousNetworkChecker.getInstance(this);
+		checker.setStatusView(findViewById(R.id.networkStatusBar));
+		checker.begin(); //start singleton and let run
 	}
 
 	@Override
@@ -134,8 +139,9 @@ public class MainActivity extends Activity {
 					editor.putString("userNumber", userNumber);
 					Log.d(TAG, "Phone Number stored as: " + userNumber);
 					editor.putBoolean("firstTime", false);
+					editor.putBoolean("isOnline", false);
 					editor.commit();
-					Log.d(TAG, "Commited userName, userNumber, and firstTime");
+					Log.d(TAG, "Commited userName, userNumber, isOnline and firstTime");
 					logInText();
 					
 					Networking network = new Networking(getApplicationContext());

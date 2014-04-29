@@ -1,23 +1,10 @@
 package com.JS.meetontime;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -48,35 +35,7 @@ public class Networking {
 	 * Check for network connection
 	 */
 	public boolean isOnline() {
-		/*
-		 * TODO
-		 */
-	/*	if (isNetworkAvailable(mContext)) {
-			try {
-				HttpURLConnection urlc = (HttpURLConnection) (new URL(
-						"http://www.google.com").openConnection());
-				urlc.setRequestProperty("User-Agent", "Test");
-				urlc.setRequestProperty("Connection", "close");
-				urlc.setConnectTimeout(1500);
-				urlc.connect();
-				return (urlc.getResponseCode() == 200);
-			} catch (IOException e) {
-				Log.e(TAG, "Error checking internet connection", e);
-			}
-		} else {
-			Log.d(TAG, "No network available!");
-		}
-		return false;
-		*/
-		return true;
-	}
-
-	private boolean isNetworkAvailable(Context context) {
-		ConnectivityManager connectivityManager = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetworkInfo = connectivityManager
-				.getActiveNetworkInfo();
-		return activeNetworkInfo != null;
+		return ContinuousNetworkChecker.getInstance(mContext).isOnline();
 	}
 
 	/*
@@ -190,6 +149,27 @@ public class Networking {
 
 		@Override
 		protected String doInBackground(String... urls) {
+			
+			//wait max of 10 sec for connection
+			for (int i = 0; i < 10; i++) {
+				if (!isOnline()) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						Log.d(TAG, "sleep inside asyncTask got interruped");
+						e.printStackTrace();
+					}
+				}
+				else {
+					break;
+				}
+			}
+			//if still not online...
+			if (!isOnline()) {
+				Log.e(TAG, "Aborting, no internet!");
+				cancel(true);
+			}
+		
 			StringBuilder builder = new StringBuilder();
 			HttpClient client = new DefaultHttpClient();
 
@@ -202,9 +182,9 @@ public class Networking {
 			// String responseString = "HELLO, YOU ENTERED: " + url;
 
 			// testing for new meetup:
-			//String responseString = "eventId=0&eventname=HELLO&hostId=ME&hostName=JoshuaSend&lat=301.01928394&long=118.01840582&datetime=2014-04-2020:20:20&inviteds=8584365309&invitedsNames=NilminiSilvasend&invitedsStatuses=false&invitedsRatings=4.02";
+			String responseString = "eventId=0&eventname=HELLO&hostId=ME&hostName=JoshuaSend&lat=301.01928394&long=118.01840582&datetime=2014-04-2020:20:20&inviteds=8584365309&invitedsNames=NilminiSilvasend&invitedsStatuses=false&invitedsRatings=4.02";
 
-			String responseString = url;
+			//String responseString = url;
 			Log.i(TAG, responseString);
 /*
 			try {

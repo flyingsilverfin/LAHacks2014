@@ -2,11 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
+
+    <View
+        android:id="@+id/networkStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="#88FF0000" />
 
     <LinearLayout
         android:id="@+id/main_activity_container"
@@ -70,8 +73,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/loggedInText"
         android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/loggedInText"
         android:text="4.5"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

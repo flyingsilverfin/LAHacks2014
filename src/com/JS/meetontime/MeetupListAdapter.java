@@ -94,7 +94,6 @@ public class MeetupListAdapter extends ArrayAdapter<Meetup> {
 			public void onClick(View v) {
 				Log.i(TAG, "clicked on position: " + position);
 
-				
 				Button b = (Button) v; //same as statusButton
 
 				//if it's the 'on my way' button
