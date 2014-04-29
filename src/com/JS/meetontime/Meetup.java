@@ -17,7 +17,7 @@ public class Meetup{
 
 	public static final String TAG = "Meetup"; 
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
-	private static SimpleDateFormat readableDateFormat  = new SimpleDateFormat("HH:mm, EEEE MMM dd");
+	private static SimpleDateFormat readableDateFormat  = new SimpleDateFormat("HH:mm, EEEE MMMM dd yyyy");
 
 	private int mEventId;
 	private String mEventName;
@@ -143,6 +143,10 @@ public class Meetup{
 		return isRsvp;
 	}
 	
+	public boolean isGoing() {
+		return isTravelling;
+	}
+	
 	public Date getDate() {
 		return mDate;
 	}
@@ -179,7 +183,7 @@ public class Meetup{
 	}
 	
 	public void setGoing() {
-		isTransmitted = true;
+		isTravelling = true;
 	}
 	
 }

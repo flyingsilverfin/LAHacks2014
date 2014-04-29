@@ -101,7 +101,8 @@ public class DatabaseBuilder {
 	 * calling this means the meetup is already transmitted yay
 	 */
 	public synchronized boolean rsvpMeetup(int meetupId) {
-		int index = findTransmittedMeetupWithId(meetupId);
+		Log.i(TAG, "rsvp'ing to meetup" + meetupId);
+		int index = findUntransmittedMeetupWithId(meetupId);
 		if (index == -1) {
 			Log.e(TAG, "Event with Id " + meetupId  + " doesn't exist in database, cannot rsvp!");
 			return false;
@@ -113,7 +114,8 @@ public class DatabaseBuilder {
 	
 	
 	public synchronized boolean goingToMeetup(int meetupId) {
-		int index = findTransmittedMeetupWithId(meetupId);
+		Log.i(TAG, "going to meetup" + meetupId);
+		int index = findUntransmittedMeetupWithId(meetupId);
 		if (index == -1) {
 			Log.e(TAG, "Event with Id " + meetupId + " doesn't exist in database, cannot go!");
 			return false;
@@ -173,6 +175,13 @@ public class DatabaseBuilder {
 	 */
 	public synchronized ArrayList<Meetup> retrieveMeetups() {
 		return mMeetups;
+	}
+	
+	/*
+	 * clear database. Debugging only for now
+	 */
+	public synchronized void clearMeetups() {
+		mMeetups = new ArrayList<Meetup>();
 	}
 	
 	

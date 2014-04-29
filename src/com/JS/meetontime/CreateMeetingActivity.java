@@ -239,19 +239,20 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             View vi=convertView;
-            if(convertView==null)
-             vi = mInflater.inflate(R.layout.row, null); 
-             tv= (TextView) vi.findViewById(R.id.textView1);
-             //tv1= (TextView) vi.findViewById(R.id.textView2); Removed phone numbers from list
-             cb = (CheckBox) vi.findViewById(R.id.checkBox1);
-             tv.setText(name1.get(position));
-             //tv1.setText(phno1.get(position));
-             cb.setTag(position);
-             cb.setChecked(mCheckStates.get(position, false));
-             cb.setOnCheckedChangeListener(this);
+            if(convertView==null){
+	            vi = mInflater.inflate(R.layout.row, null); 
+            }
+            tv= (TextView) vi.findViewById(R.id.textView1);
+            //tv1= (TextView) vi.findViewById(R.id.textView2); Removed phone numbers from list
+            cb = (CheckBox) vi.findViewById(R.id.checkBox1);
+            tv.setText(name1.get(position));
+            //tv1.setText(phno1.get(position));
+            cb.setTag(position);
+            cb.setChecked(mCheckStates.get(position, false));
+            cb.setOnCheckedChangeListener(this);
 
             return vi;
-        }
+    	}
         public boolean isChecked(int position) {
         	return mCheckStates.get(position, false);
         }

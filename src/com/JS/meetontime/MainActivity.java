@@ -54,15 +54,15 @@ public class MainActivity extends Activity {
 			logInText();
 		}
 		
-		locator = new LocatorClass(getApplicationContext());
-		getLocation();
+		//locator = new LocatorClass(getApplicationContext());
+		//getLocation();
 		
 		meetingCheckButton = (Button) findViewById(R.id.meetingCheckButton);
 		meetingCheckButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
 				Intent intent = new Intent(MainActivity.this, MeetupListActivity.class);
-				startActivity(intent);
 				Log.d(TAG, "Opening User profile activity");
+				startActivity(intent);
 			}
 		});
 		
