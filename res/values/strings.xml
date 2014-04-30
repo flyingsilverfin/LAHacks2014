@@ -29,6 +29,7 @@
     <string name="title_activity_meetup_list">MeetupListActivity</string>
     <string name="meetup_list_activity_header_text">My Events</string>
     <string name="title_activity_meetup_detail">MeetupDetailActivity</string>
+    <string name="meetup_detail_activity_header_text">Event Details</string>
     <string name="rsvp">rsvp</string>
 
 </resources>

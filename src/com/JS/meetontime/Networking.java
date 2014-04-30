@@ -150,25 +150,16 @@ public class Networking {
 		@Override
 		protected String doInBackground(String... urls) {
 			
-			//wait max of 10 sec for connection
-			for (int i = 0; i < 10; i++) {
-				if (!isOnline()) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						Log.d(TAG, "sleep inside asyncTask got interruped");
-						e.printStackTrace();
-					}
+			//check for internet for 10 sec max
+			int counter = 0;
+			while (!isOnline()) {
+				if (counter == 10) {
+					Log.e(TAG, "Aborting,  no internet after 10 sec");
+					cancel(true);
 				}
-				else {
-					break;
-				}
+				counter++;
 			}
-			//if still not online...
-			if (!isOnline()) {
-				Log.e(TAG, "Aborting, no internet!");
-				cancel(true);
-			}
+		
 		
 			StringBuilder builder = new StringBuilder();
 			HttpClient client = new DefaultHttpClient();

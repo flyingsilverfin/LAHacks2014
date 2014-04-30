@@ -78,7 +78,8 @@
         </activity>
         <activity
             android:name="com.JS.meetontime.MeetupDetailActivity"
-            android:label="@string/title_activity_meetup_detail" >
+            android:label="@string/meetup_detail_activity_header_text"
+            android:theme="@style/NoActionBar" >
         </activity>
     </application>
 

@@ -43,15 +43,18 @@ public class MainActivity extends Activity {
 		sharedPref = getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
 		editor = sharedPref.edit();
 		if(sharedPref.getBoolean("firstTime", true)){
-			editor.putBoolean("isRegisteredOnServer", false);
+			//create new file if this the first time the app is running
 			Helper.writeFile(getApplicationContext(), Helper.meetupFile, new ArrayList<String>());
 			promptUser();
 		} else {
 			userName = sharedPref.getString("userName", "userName");
 			userNumber = sharedPref.getString("userNumber", "userNumber");
+			editor.putBoolean("isOnline", false); //just incase didn't update properly when quitting (has happened)
 			editor.commit();
 			Log.d(TAG, "Stored: " + userName + " " + userNumber);
 			logInText();
+			
+			Log.v(TAG, "creating network checker");
 		}
 		
 		//locator = new LocatorClass(getApplicationContext());
@@ -89,11 +92,9 @@ public class MainActivity extends Activity {
 				promptUser();
 			}});
 		
-		
-		Log.v(TAG, "creating network checker");
-		ContinuousNetworkChecker checker = ContinuousNetworkChecker.getInstance(this);
-		checker.setStatusView(findViewById(R.id.networkStatusBar));
-		checker.begin(); //start singleton and let run
+		ContinuousNetworkChecker.getInstance(this).setStatusView(findViewById(R.id.networkStatusBar));
+		ContinuousNetworkChecker.getInstance(this).begin(); //start singleton and let run
+
 	}
 
 	@Override
@@ -168,6 +169,9 @@ public class MainActivity extends Activity {
 	class registerUserCallback implements AsyncResponseInterface {
 		public void asyncCallback(String res) {
 			Toast.makeText(getApplicationContext(), "Registered on server!", Toast.LENGTH_SHORT).show();
+			Log.i(TAG, "Registered on server!");
+			editor.putBoolean("isRegisteredOnServer", false);
+			editor.commit();
 		}
 	}
 
