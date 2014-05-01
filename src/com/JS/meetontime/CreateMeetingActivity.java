@@ -129,8 +129,7 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 			}});
 		
         
-        //update the checker as to where we are
-        ContinuousNetworkChecker.getInstance(this).setStatusView(findViewById(R.id.networkStatusBar));
+      
         
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -138,6 +137,14 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 		}
 		
 	}
+	
+	
+	protected void onResume() {
+		super.onResume();
+		//update the checker as to where we are
+        ContinuousNetworkChecker.getInstance(this).setStatusView(findViewById(R.id.networkStatusBar));
+	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

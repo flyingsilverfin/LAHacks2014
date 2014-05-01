@@ -57,16 +57,17 @@ public class JoinMeetingActivity extends Activity {
 								
 			}
 		});
-		
-		
-        //update the checker as to where we are
-        ContinuousNetworkChecker.getInstance(this).setStatusView(findViewById(R.id.networkStatusBar));		
-        
-        
+		       
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+	}
+	
+	protected void onResume() {
+		super.onResume();
+		//update the checker as to where we are
+		ContinuousNetworkChecker.getInstance(this).setStatusView(findViewById(R.id.networkStatusBar));
 	}
 
 	@Override

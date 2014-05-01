@@ -83,18 +83,24 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, JoinMeetingActivity.class);
 				startActivity(intent);
-			}});
+			}}
+		);
 		
 		userSettingsButton = (Button) findViewById(R.id.userSettings);
 		userSettingsButton.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View v) {
 				promptUser();
-			}});
-		
+			}}
+		);
+	}
+	
+	
+	protected void onResume() {
+		super.onResume();
+		Log.i(TAG, "Setting status view");
 		ContinuousNetworkChecker.getInstance(this).setStatusView(findViewById(R.id.networkStatusBar));
 		ContinuousNetworkChecker.getInstance(this).begin(); //start singleton and let run
-
 	}
 
 	@Override
