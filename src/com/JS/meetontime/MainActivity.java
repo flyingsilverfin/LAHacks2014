@@ -176,6 +176,7 @@ public class MainActivity extends Activity {
 		public void asyncCallback(String res) {
 			Toast.makeText(getApplicationContext(), "Registered on server!", Toast.LENGTH_SHORT).show();
 			Log.i(TAG, "Registered on server!");
+			DatabaseBuilder.getDatabaseBuilder(MainActivity.this).clearMeetups();
 			editor.putBoolean("isRegisteredOnServer", false);
 			editor.commit();
 		}

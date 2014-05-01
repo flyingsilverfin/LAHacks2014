@@ -173,7 +173,7 @@ public class Networking {
 			// String responseString = "HELLO, YOU ENTERED: " + url;
 
 			// testing for new meetup:
-			String responseString = "eventId=0&eventname=HELLO&hostId=ME&hostName=JoshuaSend&lat=301.01928394&long=118.01840582&datetime=2014-04-2020:20:20&inviteds=8584365309&invitedsNames=NilminiSilvasend&invitedsStatuses=false&invitedsRatings=4.02";
+			String responseString = "eventId=0&eventname=HELLO&hostId=ME&hostName=JoshuaSend&lat=32.7150&long=-117.1625&datetime=2014-04-2020:20:20&inviteds=8584365309&invitedsNames=NilminiSilvasend&invitedsStatuses=false&invitedsRatings=4.02";
 
 			//String responseString = url;
 			Log.i(TAG, responseString);

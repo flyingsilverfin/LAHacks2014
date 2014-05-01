@@ -190,8 +190,8 @@ public class Helper {
 		StringBuilder str = new StringBuilder();
 		if (num.length() == 10) {
 			str.append("(");
-			str.append(num.substring(3));
-			str.append(")");
+			str.append(num.substring(0,3));
+			str.append(") ");
 			str.append(num.substring(3, 6));
 			str.append("-");
 			str.append(num.substring(6, num.length()));

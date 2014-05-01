@@ -135,6 +135,15 @@ public class Meetup{
 		return names.toString();
 	}
 	
+	public ArrayList<String[]> getCollatedInvitedsInfo() {
+		ArrayList<String[]> info = new ArrayList<String[]>();
+		for (int i = 0; i < mInviteds.size(); i++) {
+			info.add(new String[] {mInvitedsNames.get(i), mInviteds.get(i),
+					String.format("%.1f", mInvitedsRatings.get(i)), mInvitedsStatuses.get(i)});
+		}
+		return info;
+	}
+	
 	public boolean isTransmitted() {
 		return isTransmitted;
 	}
