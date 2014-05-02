@@ -31,6 +31,18 @@ public class Helper {
 		return userName;	
 	}
 	
+	public static String getUserRating(Context context) {
+		SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
+		String userRating = prefs.getString("userRating", "0");
+		return userRating;
+	}
+	
+	public static void setUserRating(Context context, String rating) {
+		SharedPreferences.Editor editor = context.getSharedPreferences("com.JS.app", Context.MODE_PRIVATE).edit();
+		editor.putString("userRating", rating);
+		editor.commit();
+	}
+	
 	public static int getLocalCounter(Context context) {
 		SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
 		int tempId = prefs.getInt("localTempCounter", -1);
@@ -39,6 +51,8 @@ public class Helper {
 		editor.commit();
 		return tempId;
 	}
+	
+
 
 	
 	/*

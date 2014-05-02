@@ -80,6 +80,14 @@ public class tmp {
 			DbBuilder.goingToMeetup(eventId);
 		}
 	}
+	
+	class arrivedAtMeetupCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			String[] idSet = res.split("=");
+			int eventId = Integer.parseInt(idSet[1]);
+			DbBuilder.arrivedAtMeetup(eventId);
+		}
+	}
 
 	class updateMeetupCallback implements AsyncResponseInterface {
 		public void asyncCallback(String res) {
@@ -104,5 +112,18 @@ public class tmp {
 
 		}
 	}
+	
+	
+	----------------------------
+	
+	class syncTimeCallback implements AsyncResponseInterface {
+		public void asyncCallback(String res) {
+			String[] data = res.split("=");
+			String datetime = data[1];
+			Date d = dateFormat.parse(datetime);
+			
+			TODO
+			
+			
 	*/
 }

@@ -122,6 +122,16 @@ public class Networking {
 
 		com.execute(GET);
 	}
+	
+	public void arrivedAtMeetup(Meetup meetup, AsyncResponseInterface callbackObj) {
+		NetworkHandler com = new NetworkHandler();
+		com.asyncCallback = callbackObj;
+		
+		String GET = "/arrivedAtMeetup/?";
+		GET += "eventId=" + meetup.getEventId();
+		
+		com.execute(GET);
+	}
 
 	public void checkForUpdate(Meetup meetup, AsyncResponseInterface callbackObj) {
 		NetworkHandler com = new NetworkHandler();

@@ -31,6 +31,7 @@ public class Meetup{
 	private boolean isTransmitted = false;
 	private boolean isRsvp = false;
 	private boolean isTravelling = false;
+	private boolean isArrived = false;
 	
 	private ArrayList<String> mInviteds;
 	private ArrayList<String> mInvitedsNames;
@@ -156,6 +157,10 @@ public class Meetup{
 		return isTravelling;
 	}
 	
+	public boolean isArrived() {
+		return isArrived;
+	}
+	
 	public Date getDate() {
 		return mDate;
 	}
@@ -194,5 +199,8 @@ public class Meetup{
 	public void setGoing() {
 		isTravelling = true;
 	}
-	
+
+	public void setArrived() {
+		isArrived = true;
+	}
 }

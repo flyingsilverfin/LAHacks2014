@@ -54,7 +54,7 @@ public class MeetupListAdapter extends ArrayAdapter<Meetup> {
 		TextView host = (TextView) rowView.findViewById(R.id.meetupListHostName);
 		TextView time = (TextView) rowView.findViewById(R.id.meetupListTime);
 		
-		event.setText(position + ". " + eventName);
+		event.setText(eventName);
 		host.setText(hostName);
 		time.setText(datetime);
 				

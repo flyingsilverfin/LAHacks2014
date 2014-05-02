@@ -45,11 +45,11 @@ public class MainActivity extends Activity {
 		if(sharedPref.getBoolean("firstTime", true)){
 			//create new file if this the first time the app is running
 			Helper.writeFile(getApplicationContext(), Helper.meetupFile, new ArrayList<String>());
-			promptUser();
+			promptUser(); //handles all the shared preferences setups
 		} else {
 			userName = sharedPref.getString("userName", "userName");
 			userNumber = sharedPref.getString("userNumber", "userNumber");
-			editor.putBoolean("isOnline", false); //just incase didn't update properly when quitting (has happened)
+			editor.putBoolean("isOnline", false); //just in case didn't update properly when quitting (has happened)
 			editor.commit();
 			Log.d(TAG, "Stored: " + userName + " " + userNumber);
 			logInText();
@@ -144,9 +144,9 @@ public class MainActivity extends Activity {
 					
 					userNumber = Helper.removeNonDigits(phoneInput.getText().toString());
 					editor.putString("userNumber", userNumber);
-					Log.d(TAG, "Phone Number stored as: " + userNumber);
 					editor.putBoolean("firstTime", false);
 					editor.putBoolean("isOnline", false);
+					editor.putString("userRating", "0.0");
 					editor.commit();
 					Log.d(TAG, "Commited userName, userNumber, isOnline and firstTime");
 					logInText();
