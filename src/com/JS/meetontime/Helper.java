@@ -43,6 +43,16 @@ public class Helper {
 		editor.commit();
 	}
 	
+	public static void setTimeDiff(Context context, long diffInMilis) {
+		SharedPreferences.Editor editor = context.getSharedPreferences("com.JS.app", Context.MODE_PRIVATE).edit();
+		editor.putLong("timediff", diffInMilis);
+		editor.commit();
+	}
+	
+	//public static Date getServerTime(Context context, Date localTime) {
+		
+	//}
+	
 	public static int getLocalCounter(Context context) {
 		SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("com.JS.app", Context.MODE_PRIVATE);
 		int tempId = prefs.getInt("localTempCounter", -1);

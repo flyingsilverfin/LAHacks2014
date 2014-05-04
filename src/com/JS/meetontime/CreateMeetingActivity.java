@@ -1,5 +1,6 @@
 package com.JS.meetontime;
 
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -92,6 +95,10 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
                 }
 	             meetingName = (EditText) findViewById(R.id.meetingName);
 	             String meetingNameString = meetingName.getText().toString();
+	             if (!ContinuousNetworkChecker.getInstance(getApplicationContext()).isOnline()) {
+	            	 Toast.makeText(CreateMeetingActivity.this, "Must be online to create event", Toast.LENGTH_LONG).show();
+	            	 return;
+	             }
 	             if (meetingNameString.length() == 0) {
 	            	 Toast.makeText(CreateMeetingActivity.this, "Enter a name", Toast.LENGTH_SHORT).show();
 	            	 return;
@@ -350,14 +357,61 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 			int hh = calendar.get(Calendar.HOUR);
 			int mm = calendar.get(Calendar.MINUTE);
 			boolean timeFormat = DateFormat.is24HourFormat(getActivity());
-			return new TimePickerDialog(getActivity(), this, hh, mm, timeFormat);
+			return new CustomTimePickerDialog(getActivity(), this, hh, mm, timeFormat, 5);
 		}
 
 		public void onTimeSet(TimePicker view, int hour, int minute) {
 			populateSetTime(hour, minute);
-		}
-		
-		
+		}		
 	}
 	
+	
+	private class CustomTimePickerDialog extends TimePickerDialog {
+		final OnTimeSetListener mCallback;
+		TimePicker mTimePicker;
+		final int increment;
+	
+		public CustomTimePickerDialog(Context context, OnTimeSetListener callBack, int hourOfDay, int minute, boolean is24HourView, int increment) {
+	        super(context, callBack, hourOfDay, minute/increment, is24HourView);
+	        this.mCallback = callBack;
+	        this.increment = increment;
+	    }
+	
+	    @Override
+	    public void onClick(DialogInterface dialog, int which) {
+            if (mCallback != null && mTimePicker!=null) {
+                mTimePicker.clearFocus();
+                mCallback.onTimeSet(mTimePicker, mTimePicker.getCurrentHour(),
+                        mTimePicker.getCurrentMinute()*increment);
+            }
+	    }
+	
+	    @Override
+	    protected void onStop() {
+	        // override and do nothing
+	    }
+	
+	    @Override
+	    protected void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        try {
+	            Class<?> rClass = Class.forName("com.android.internal.R$id");
+	            Field timePicker = rClass.getField("timePicker");
+	            this.mTimePicker = (TimePicker)findViewById(timePicker.getInt(null));
+	            Field m = rClass.getField("minute");
+	
+	            NumberPicker mMinuteSpinner = (NumberPicker)mTimePicker.findViewById(m.getInt(null));
+	            mMinuteSpinner.setMinValue(0);
+	            mMinuteSpinner.setMaxValue((60/increment)-1);
+	            List<String> displayedValues = new ArrayList<String>();
+	            for(int i=0;i<60;i+=increment) {
+	                displayedValues.add(String.format("%02d", i));
+	            }
+	            mMinuteSpinner.setDisplayedValues(displayedValues.toArray(new String[0]));
+	        }
+	        catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
 }
