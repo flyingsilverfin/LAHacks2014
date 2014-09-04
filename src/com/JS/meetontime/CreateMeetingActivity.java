@@ -395,6 +395,8 @@ public class CreateMeetingActivity extends Activity implements OnItemClickListen
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        try {
+	        	//copied this off stack overflow, no idea how it works
+	        	//"reflection" or something
 	            Class<?> rClass = Class.forName("com.android.internal.R$id");
 	            Field timePicker = rClass.getField("timePicker");
 	            this.mTimePicker = (TimePicker)findViewById(timePicker.getInt(null));

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.content.Context;
+import android.location.Location;
 import android.util.Log;
 
 
@@ -25,6 +26,7 @@ public class Meetup{
 	private String mHostName;
 	private String mLat;
 	private String mLong;
+	private Location mLocation;
 	private Date mDate;
 	
 	private boolean isHost;
@@ -48,7 +50,6 @@ public class Meetup{
 	public Meetup(int eventId, String eventName, String hostId, String hostName, String lat, String lng, String datetime, 
 			ArrayList<String> inviteds, ArrayList<String> invitedsNames, ArrayList<String> invitedsStatuses, ArrayList<Float> invitedsRatings,
 			Context context) {
-		
 		if (Helper.getUserNumber(context).equals(hostId)) {
 			isHost = true;
 		}
@@ -62,6 +63,11 @@ public class Meetup{
 		mHostName = hostName;
 		mLat = lat;
 		mLong = lng;
+		
+		mLocation = new Location("custom");
+		mLocation.setLatitude(Double.parseDouble(mLat));
+		mLocation.setLongitude(Double.parseDouble(mLat));
+		//check whether the lat/long of the mLocation setters is all a fraction of degrees like is given in the strings
 
 		try{
 			mDate = dateFormat.parse(datetime);
@@ -82,6 +88,10 @@ public class Meetup{
 	
 	public String getLong() {
 		return mLong;
+	}
+	
+	public Location getLocation() {
+		return mLocation;
 	}
 	
 	public String getHumanDate() {
@@ -163,6 +173,13 @@ public class Meetup{
 	
 	public Date getDate() {
 		return mDate;
+	}
+	
+	public long getMillisUntilMeetup() {
+		Date now = new Date();
+		long cur = now.getTime();
+		long target = mDate.getTime();
+		return target-cur;
 	}
 	
 	public String getLastUpdated() {

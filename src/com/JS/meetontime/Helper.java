@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class Helper {
 
@@ -135,6 +138,16 @@ public class Helper {
 	
 	
 	/*
+	 * Maps tools
+	 */
+	public static double getMetersBetween(LatLng p1, LatLng p2) {
+		float[] result = new float[1];
+		Location.distanceBetween(p1.latitude, p1.longitude, p2.latitude, p2.longitude, new float[1]);
+		return result[0];
+	}
+
+	
+	 /*
 	 * Misc tools
 	 */
 	

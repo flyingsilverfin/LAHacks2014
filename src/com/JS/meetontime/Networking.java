@@ -82,10 +82,11 @@ public class Networking {
 
 		String GET = "/newMeetup/?";
 		GET += "hostId=" + meetup.getHostId();
+		GET += "hostName=" + meetup.getHostName(); //me!
 		GET += "&eventName=" + meetup.getEventName();
 		GET += "&lat=" + meetup.getLat();
 		GET += "&long=" + meetup.getLong();
-		GET += "&datetime=" + meetup.getFormattedDate();
+		GET += "&remainingMillis=" + meetup.getMillisUntilMeetup();
 		GET += "&inviteds=" + meetup.getInvitedsString();
 		GET += "&invitedsNames=" + meetup.getInvitedsNamesString();
 

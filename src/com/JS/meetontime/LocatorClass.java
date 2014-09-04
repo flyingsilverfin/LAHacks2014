@@ -14,15 +14,17 @@ import android.app.Service;
 
 
 public class LocatorClass extends Service implements LocationListener {
+	
+	private static final String TAG = "LocatorClass";
+
 	Context mContext;
 	Boolean isGpsEnabled;
 	LocationManager locationManager;
 	Location location;
 	private double latitude = 0.0;
 	private double longitude = 0.0;
-	private static final long MIN_DISTANCE_CHANGE = 10; //10 meters
-	private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute in milliseconds
-	private static final String TAG = "LocatorClass";
+	private static final long MIN_DISTANCE_CHANGE = 10; //100 meters
+	private static final long MIN_TIME_BW_UPDATES = 1000 * 60; // 1 minute in milliseconds
 	
 	public LocatorClass(Context mContext){
 		this.mContext = mContext;
@@ -65,8 +67,8 @@ public class LocatorClass extends Service implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location arg0) {
-		// TODO Auto-generated method stub
-		
+		Log.i(TAG, "Location changed: lat: " + arg0.getLatitude() + ", long: " + arg0.getLongitude());
+		arg0.
 	}
 
 
@@ -86,8 +88,7 @@ public class LocatorClass extends Service implements LocationListener {
 
 	@Override
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-		// TODO Auto-generated method stub
-		
+		Log.i(TAG, "Status changed: " + arg0 + " " + arg1);		
 	}
 
 

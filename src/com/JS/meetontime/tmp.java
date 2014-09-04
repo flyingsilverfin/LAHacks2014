@@ -132,32 +132,8 @@ public class tmp {
 	 * When a invited person requests an event, we send back the remaining time in milliseconds
 	 * That is, current target date/time in millis - current date/time in millis.
 	 * The receiving device then add this difference to the current date/time in millis and converts back,
-	 * rounding down to the closest 5 minutes!
+	 * rounding down to the closest 5 min
 	 */
-	
-	class syncTimeCallback implements AsyncResponseInterface {
-		public void asyncCallback(String res) {
-			
-			//what comes back:
-			//year=&month=&day=&hour=&min=
-			 
-			String[] data = res.split("&");
-			int serverYear = Integer.parseInt(data[0].split("=")[1]);
-			int serverMonth = Integer.parseInt(data[1].split("=")[1]);
-			int serverDay = Integer.parseInt(data[2].split("=")[1]);
-			int serverHour = Integer.parseInt(data[3].split("=")[1]);
-			int serverMin = Integer.parseInt(data[4].split("=")[1]);
-			
-			Calendar cal = Calendar.getInstance();
-			cal.set(serverYear,  serverMonth, serverDay, serverHour, serverMin);
-			Date serverDate = cal.getTime();
-			
-			cal.clear();
-			Date localDate = cal.getTime(); //hope this gets current local time
-			
-			long diff = serverDate.getTime() - localDate.getTime();
-		
-		}
-	}
+
 }
 
