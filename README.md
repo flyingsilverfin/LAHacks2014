@@ -6,3 +6,6 @@ The app is supposed to work by having the host send out invitations to various p
 The host of an event can see everyone else's rating. The idea was that the host could change the time for the users with a low rating to be 5 minutes earlier or so to compensate for their habitual lateness.
 
 Essentially, users are penalized in reputation (and others have proof that their friends are always late...)
+
+
+This is and the android frontend app. We hacked together a python based webserver for the hackathon but scrapped it. Started working on a node.js server at some point but interest dropped off.
